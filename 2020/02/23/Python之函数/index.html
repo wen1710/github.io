@@ -4,10 +4,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="PARAMETER和ARGUMENT的区别, Hexo">
-    <meta name="description" content="PARAMETER和ARGUMENT的区别在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。根据网上一些资料，对parameter和argument的区别，做如下的简单说明。
-
-paramet">
+    <meta name="keywords" content="Python之函数, Hexo">
+    <meta name="description" content="函数(function)1.简介A function is a block of code which only runs when it is called.
+You can pass data, known as parameters,">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -15,7 +14,7 @@ paramet">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>PARAMETER和ARGUMENT的区别 | Hexo</title>
+    <title>Python之函数 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -305,12 +304,12 @@ paramet">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PARAMETER和ARGUMENT的区别</h1>
+                    <h1 class="description center-align post-title">Python之函数</h1>
                 </div>
             </div>
         </div>
@@ -427,8 +426,8 @@ paramet">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/">
-                                <span class="chip bg-color">计算机英语</span>
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
                             </a>
                         
                     </div>
@@ -443,14 +442,14 @@ paramet">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-02-19
+                    2020-02-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-22
+                    2020-02-23
                 </div>
                 
 
@@ -465,26 +464,93 @@ paramet">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="PARAMETER和ARGUMENT的区别"><a href="#PARAMETER和ARGUMENT的区别" class="headerlink" title="PARAMETER和ARGUMENT的区别"></a>PARAMETER和ARGUMENT的区别</h3><h4 id="在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。"><a href="#在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。" class="headerlink" title="在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。"></a>在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。</h4><p>根据网上一些资料，对parameter和argument的区别，做如下的简单说明。</p>
-<ol>
-<li><p>parameter是指函数定义中参数，而argument指的是函数调用时的实际参数。</p>
-</li>
-<li><p>简略描述为：parameter=形参(formal parameter)， argument=实参(actual parameter)。</p>
-</li>
-<li><p>在不很严格的情况下，现在二者可以混用，一般用argument，而parameter则比较少用。</p>
-</li>
-</ol>
-<p>While defining method, variables passed in the method are called parameters.<br>当定义方法时，传递到方法中的变量称为参数.<br>While using those methods, values passed to those variables are called arguments.<br>当调用方法时，传给变量的值称为引数.（有时argument被翻译为“引数“）</p>
-<p>一个python的例子来说明二者的区别：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(n, pc)</span>:</span>  <span class="comment"># n and pc are parameters</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line">func(n, pc) <span class="comment"># n and pc are arguments</span></span><br></pre></td></tr></table></figure>
+                <h3 id="函数-function"><a href="#函数-function" class="headerlink" title="函数(function)"></a>函数(function)</h3><h4 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h4><p>A function is a block of code which only runs when it is called.</p>
+<p>You can pass data, known as parameters, into a function.</p>
+<p>A function can return data as a result.</p>
+<p>你可以定义一个由自己想要功能的函数，以下是简单的规则：</p>
+<ul>
+<li>函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()。</li>
+<li>函数名必须要符号标识符的规范（可以包含字母、数字、下划线、但是不能以数字开头） </li>
+<li>任何传入参数和自变量必须放在圆括号中间。圆括号之间可以用于定义参数。</li>
+<li>函数的第一行语句可以选择性地使用文档字符串—用于存放函数说明。</li>
+<li>函数内容以冒号起始，并且缩进。</li>
+<li>return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
+</ul>
+<h4 id="2-语法"><a href="#2-语法" class="headerlink" title="2.语法"></a>2.语法</h4><pre><code class="python">def functionname( parameters ):
+    &#39;&#39;&#39;
+    函数_文档字符串
+    Documentation Strings
+    &#39;&#39;&#39;
+    the function body
+    return [expression]</code></pre>
+<h4 id="3-定义一个函数"><a href="#3-定义一个函数" class="headerlink" title="3.定义一个函数"></a>3.定义一个函数</h4><pre><code class="python">def my_function():
+    print(&quot;Hello from a function&quot;)</code></pre>
+<h4 id="4-函数的调用"><a href="#4-函数的调用" class="headerlink" title="4.函数的调用"></a>4.函数的调用</h4><pre><code class="python">my_function()</code></pre>
+<h4 id="5-参数"><a href="#5-参数" class="headerlink" title="5.参数"></a>5.参数</h4><pre><code>From a function&#39;s perspective:
 
-<p>如下叙述，摘自<a href="http://en.wikipedia.org/wiki/Parameter_%28computer_programming%29" target="_blank" rel="noopener"wikipedia"">wikipedia</a>:</p>
-<p>Just as in standard mathematical usage, the argument is thus the actual value passed to a function, procedure, or routine (such as x in log x), whereas the parameter is a reference to that value inside the implementation of the function (log in this case). See the Parameters and arguments section for more information.</p>
-<h2 id="Parameters-and-arguments"><a href="#Parameters-and-arguments" class="headerlink" title="Parameters and arguments"></a>Parameters and arguments</h2><p>These two terms are sometimes loosely used interchangeably; in particular, “argument” is sometimes used in place of “parameter”. Nevertheless, there is a difference. Properly, parameters appear in procedure definitions; arguments appear in procedure calls.</p>
-<p>A parameter is an intrinsic property of the procedure, included in its definition. For example, in many languages, a minimal procedure to add two supplied integers together and calculate the sum total would need two parameters, one for each expected integer. In general, a procedure may be defined with any number of parameters, or no parameters at all. If a procedure has parameters, the part of its definition that specifies the parameters is called its parameter list.</p>
-<p>By contrast, the arguments are the values actually supplied to the procedure when it is called. Unlike the parameters, which form an unchanging part of the procedure’s definition, the arguments can, and often do, vary from call to call. Each time a procedure is called, the part of the procedure call that specifies the arguments is called the argument list.</p>
-<p>Although parameters are also commonly referred to as arguments, arguments are more properly thought of as the actual values or references assigned to the parameter variables when the subroutine is called at run-time. When discussing code that is calling into a subroutine, any values or references passed into the subroutine are the arguments, and the place in the code where these values or references are given is the parameter list. When discussing the code inside the subroutine definition, the variables in the subroutine’s parameter list are the parameters, while the values of the parameters at runtime are the arguments.</p>
-<p>Many programmers use parameter and argument interchangeably, depending on context to distinguish the meaning. The term formal parameter refers to the variable as found in the function definition (parameter), while actual parameter refers to the actual value passed (argument).</p>
+A parameter is the variable listed inside the parentheses in the function definition.
+
+An argument is the value that are sent to the function when it is called.</code></pre><ul>
+<li>在定义函数时，可以在函数名后的()中定义数量不等的形参，<br>  多个形参之间使用,隔开</li>
+<li>形参（形式参数）(parameter)<ul>
+<li>定义形参就相当于在函数内部声明了变量，但是并不赋值</li>
+</ul>
+</li>
+<li>实参（实际参数）(argument)<ul>
+<li>如果函数定义时，指定了形参，那么在调用函数时也必须传递实参，<br>  实参将会赋值给对应的形参，简单来说，有几个形参就得传几个实参<h5 id="1-必需参数-位置参数"><a href="#1-必需参数-位置参数" class="headerlink" title="1.必需参数(位置参数)"></a>1.必需参数(位置参数)</h5><pre><code class="python">def my_function(fname, lname):
+print(fname + &quot; &quot; + lname)
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>my_function(“Emil”, “Refsnes”)</p>
+<pre><code>- 必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。
+##### 2.不定长参数(*args)
+```python
+def my_function(*kids):
+    print(&quot;The youngest child is &quot; + kids[2])
+
+my_function(&quot;Emil&quot;, &quot;Tobias&quot;, &quot;Linus&quot;)</code></pre><ul>
+<li>不定长参数可以一次传入过个参数,传入参数会生成一个元组(tuple).<h5 id="3-关键字参数"><a href="#3-关键字参数" class="headerlink" title="3.关键字参数"></a>3.关键字参数</h5><pre><code class="python">def my_function(child3, child2, child1):
+  print(&quot;The youngest child is &quot; + child3 + child2 + child1)
+</code></pre>
+</li>
+</ul>
+<p>my_function(child1 = “Emil”, child2 = “Tobias”, child3 = “Linus”)</p>
+<pre><code>- 关键字参数可以直接给位置参数赋值,可以不按找位置参数顺便.
+##### 4.任意关键字参数(**kwargs)
+kwargs(keyword arguments)
+```python
+def my_function(**kid):
+    print(&quot;His last name is &quot; + kid[&quot;lname&quot;])
+
+my_function(fname = &quot;Tobias&quot;, lname = &quot;Refsnes&quot;)</code></pre><ul>
+<li>任意关键字参数可以传入多个关键字参数,传入参数会生成一个字典(dictionary).<h5 id="5-默认值参数"><a href="#5-默认值参数" class="headerlink" title="5.默认值参数"></a>5.默认值参数</h5><pre><code class="python">def my_function(country = &quot;Norway&quot;):
+  print(&quot;I am from &quot; + country)
+</code></pre>
+</li>
+</ul>
+<p>my_function(“Sweden”)<br>my_function(“India”)<br>my_function()<br>my_function(“Brazil”)</p>
+<pre><code>- 默认值参数在函数声明的时候已经赋值,可以不传参数.
+##### 6.混合参数
+```python
+def my_function(name, *hobby, sex = &#39;male&#39;, **family):
+    print(f&quot;I am {name} {sex} {hobby} {family}&quot;)
+my_function(&quot;Jivan&quot;, &quot;sing&quot;, &quot;movie&quot;, father = &quot;dad&quot;, mother = &quot;mom&quot;)</code></pre><ul>
+<li>声明函数是参数的顺序:<ul>
+<li>位置参数 &gt; <em>args &gt; 默认值参数 &gt; *</em>kwargs<h5 id="7-不定长参数和任意关键字参数传参"><a href="#7-不定长参数和任意关键字参数传参" class="headerlink" title="7.不定长参数和任意关键字参数传参"></a>7.不定长参数和任意关键字参数传参</h5><pre><code class="python">def func(*args,**kwargs):
+return args , kwargs
+func(*[1,2,3,4,5], **{&#39;a&#39;:&#39;1&#39;,&#39;b&#39;:&#39;2&#39;})
+lis = [6,7,8,9,10]
+dic = {&#39;c&#39;:&#39;3&#39;,&#39;d&#39;:&#39;4&#39;}
+func(*lis, **dic)</code></pre>
+</li>
+</ul>
+</li>
+<li>不定长参数传参的时候可以在<strong>可迭代对象</strong>前面加*号.</li>
+<li>任意关键字参数传参的时候可以在<strong>字典前面</strong>加**.</li>
+</ul>
 
             </div>
             <hr/>
@@ -510,7 +576,7 @@ paramet">
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://www.wensss.life/2020/02/19/test-my-site/">http://www.wensss.life/2020/02/19/test-my-site/</a>
+                    <a href="http://www.wensss.life/2020/02/23/Python%E4%B9%8B%E5%87%BD%E6%95%B0/">http://www.wensss.life/2020/02/23/Python%E4%B9%8B%E5%87%BD%E6%95%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -548,8 +614,8 @@ paramet">
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/">
-                                    <span class="chip bg-color">计算机英语</span>
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
                                 </a>
                             
                         </div>
@@ -715,9 +781,10 @@ paramet">
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
+                <i class="far fa-dot-circle"></i>&nbsp;Current
+            </div>
             <div class="card">
                 <a href="/2020/02/23/Python%E4%B9%8B%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
@@ -736,9 +803,9 @@ You can pass data, known as parameters,
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -747,6 +814,7 @@ You can pass data, known as parameters,
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -765,19 +833,21 @@ You can pass data, known as parameters,
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/19/hello-world/">
+                <a href="/2020/02/19/test-my-site/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="PARAMETER和ARGUMENT的区别">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">PARAMETER和ARGUMENT的区别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            PARAMETER和ARGUMENT的区别在对一个函数写一个注释时，我在考虑到底该用parameter还是用argument来描述其参数呢。根据网上一些资料，对parameter和argument的区别，做如下的简单说明。
+
+paramet
                         
                     </div>
                     <div class="publish-info">
@@ -791,6 +861,14 @@ You can pass data, known as parameters,
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/">
+                        <span class="chip bg-color">计算机英语</span>
+                    </a>
+                    
                 </div>
                 
             </div>
