@@ -27,7 +27,8 @@ You can pass data, known as parameters,">
 
     <script src="/libs/jquery/jquery.min.js"></script>
     
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 <body>
@@ -430,10 +431,23 @@ You can pass data, known as parameters,">
                                 <span class="chip bg-color">Python</span>
                             </a>
                         
+                            <a href="/tags/%E5%87%BD%E6%95%B0/">
+                                <span class="chip bg-color">函数</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -476,16 +490,16 @@ You can pass data, known as parameters,">
 <li>函数内容以冒号起始，并且缩进。</li>
 <li>return [表达式] 结束函数，选择性地返回一个值给调用方。不带表达式的return相当于返回 None。</li>
 </ul>
-<h4 id="2-语法"><a href="#2-语法" class="headerlink" title="2.语法"></a>2.语法</h4><pre><code class="python">def functionname( parameters ):
-    &#39;&#39;&#39;
+<h4 id="2-语法"><a href="#2-语法" class="headerlink" title="2.语法"></a>2.语法</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">functionname</span><span class="token punctuation">(</span> parameters <span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">'''
     函数_文档字符串
     Documentation Strings
-    &#39;&#39;&#39;
+    '''</span>
     the function body
-    return [expression]</code></pre>
-<h4 id="3-定义一个函数"><a href="#3-定义一个函数" class="headerlink" title="3.定义一个函数"></a>3.定义一个函数</h4><pre><code class="python">def my_function():
-    print(&quot;Hello from a function&quot;)</code></pre>
-<h4 id="4-函数的调用"><a href="#4-函数的调用" class="headerlink" title="4.函数的调用"></a>4.函数的调用</h4><pre><code class="python">my_function()</code></pre>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>expression<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="3-定义一个函数"><a href="#3-定义一个函数" class="headerlink" title="3.定义一个函数"></a>3.定义一个函数</h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Hello from a function"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="4-函数的调用"><a href="#4-函数的调用" class="headerlink" title="4.函数的调用"></a>4.函数的调用</h4><pre class="line-numbers language-python"><code class="language-python">my_function<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h4 id="5-参数"><a href="#5-参数" class="headerlink" title="5.参数"></a>5.参数</h4><pre><code>From a function&#39;s perspective:
 
 A parameter is the variable listed inside the parentheses in the function definition.
@@ -497,57 +511,65 @@ An argument is the value that are sent to the function when it is called.</code>
 </ul>
 </li>
 <li>实参（实际参数）(argument)<ul>
-<li>如果函数定义时，指定了形参，那么在调用函数时也必须传递实参，<br>  实参将会赋值给对应的形参，简单来说，有几个形参就得传几个实参<h5 id="1-必需参数-位置参数"><a href="#1-必需参数-位置参数" class="headerlink" title="1.必需参数(位置参数)"></a>1.必需参数(位置参数)</h5><pre><code class="python">def my_function(fname, lname):
-print(fname + &quot; &quot; + lname)
-</code></pre>
-</li>
+<li>如果函数定义时，指定了形参，那么在调用函数时也必须传递实参，<br>  实参将会赋值给对应的形参，简单来说，有几个形参就得传几个实参</li>
 </ul>
 </li>
 </ul>
-<p>my_function(“Emil”, “Refsnes”)</p>
-<pre><code>- 必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。
-##### 2.不定长参数(*args)
-```python
-def my_function(*kids):
-    print(&quot;The youngest child is &quot; + kids[2])
+<h5 id="1-必需参数-位置参数"><a href="#1-必需参数-位置参数" class="headerlink" title="1.必需参数(位置参数)"></a>1.必需参数(位置参数)</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span>fname<span class="token punctuation">,</span> lname<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>fname <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> lname<span class="token punctuation">)</span>
 
-my_function(&quot;Emil&quot;, &quot;Tobias&quot;, &quot;Linus&quot;)</code></pre><ul>
-<li>不定长参数可以一次传入过个参数,传入参数会生成一个元组(tuple).<h5 id="3-关键字参数"><a href="#3-关键字参数" class="headerlink" title="3.关键字参数"></a>3.关键字参数</h5><pre><code class="python">def my_function(child3, child2, child1):
-  print(&quot;The youngest child is &quot; + child3 + child2 + child1)
-</code></pre>
-</li>
+my_function<span class="token punctuation">(</span><span class="token string">"Emil"</span><span class="token punctuation">,</span> <span class="token string">"Refsnes"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>必需参数须以正确的顺序传入函数。调用时的数量必须和声明时的一样。</li>
 </ul>
-<p>my_function(child1 = “Emil”, child2 = “Tobias”, child3 = “Linus”)</p>
-<pre><code>- 关键字参数可以直接给位置参数赋值,可以不按找位置参数顺便.
-##### 4.任意关键字参数(**kwargs)
-kwargs(keyword arguments)
-```python
-def my_function(**kid):
-    print(&quot;His last name is &quot; + kid[&quot;lname&quot;])
+<h5 id="2-不定长参数-args"><a href="#2-不定长参数-args" class="headerlink" title="2.不定长参数(*args)"></a>2.不定长参数(*args)</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span><span class="token operator">*</span>kids<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"The youngest child is "</span> <span class="token operator">+</span> kids<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
 
-my_function(fname = &quot;Tobias&quot;, lname = &quot;Refsnes&quot;)</code></pre><ul>
-<li>任意关键字参数可以传入多个关键字参数,传入参数会生成一个字典(dictionary).<h5 id="5-默认值参数"><a href="#5-默认值参数" class="headerlink" title="5.默认值参数"></a>5.默认值参数</h5><pre><code class="python">def my_function(country = &quot;Norway&quot;):
-  print(&quot;I am from &quot; + country)
-</code></pre>
-</li>
+my_function<span class="token punctuation">(</span><span class="token string">"Emil"</span><span class="token punctuation">,</span> <span class="token string">"Tobias"</span><span class="token punctuation">,</span> <span class="token string">"Linus"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>不定长参数可以一次传入过个参数,传入参数会生成一个元组(tuple).</li>
 </ul>
-<p>my_function(“Sweden”)<br>my_function(“India”)<br>my_function()<br>my_function(“Brazil”)</p>
-<pre><code>- 默认值参数在函数声明的时候已经赋值,可以不传参数.
-##### 6.混合参数
-```python
-def my_function(name, *hobby, sex = &#39;male&#39;, **family):
-    print(f&quot;I am {name} {sex} {hobby} {family}&quot;)
-my_function(&quot;Jivan&quot;, &quot;sing&quot;, &quot;movie&quot;, father = &quot;dad&quot;, mother = &quot;mom&quot;)</code></pre><ul>
+<h5 id="3-关键字参数"><a href="#3-关键字参数" class="headerlink" title="3.关键字参数"></a>3.关键字参数</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span>child3<span class="token punctuation">,</span> child2<span class="token punctuation">,</span> child1<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"The youngest child is "</span> <span class="token operator">+</span> child3 <span class="token operator">+</span> child2 <span class="token operator">+</span> child1<span class="token punctuation">)</span>
+
+my_function<span class="token punctuation">(</span>child1 <span class="token operator">=</span> <span class="token string">"Emil"</span><span class="token punctuation">,</span> child2 <span class="token operator">=</span> <span class="token string">"Tobias"</span><span class="token punctuation">,</span> child3 <span class="token operator">=</span> <span class="token string">"Linus"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>关键字参数可以直接给位置参数赋值,可以不按找位置参数顺便.</li>
+</ul>
+<h5 id="4-任意关键字参数-kwargs"><a href="#4-任意关键字参数-kwargs" class="headerlink" title="4.任意关键字参数(**kwargs)"></a>4.任意关键字参数(**kwargs)</h5><p>kwargs(keyword arguments)</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span><span class="token operator">**</span>kid<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"His last name is "</span> <span class="token operator">+</span> kid<span class="token punctuation">[</span><span class="token string">"lname"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+my_function<span class="token punctuation">(</span>fname <span class="token operator">=</span> <span class="token string">"Tobias"</span><span class="token punctuation">,</span> lname <span class="token operator">=</span> <span class="token string">"Refsnes"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>任意关键字参数可以传入多个关键字参数,传入参数会生成一个字典(dictionary).</li>
+</ul>
+<h5 id="5-默认值参数"><a href="#5-默认值参数" class="headerlink" title="5.默认值参数"></a>5.默认值参数</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span>country <span class="token operator">=</span> <span class="token string">"Norway"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"I am from "</span> <span class="token operator">+</span> country<span class="token punctuation">)</span>
+
+my_function<span class="token punctuation">(</span><span class="token string">"Sweden"</span><span class="token punctuation">)</span>
+my_function<span class="token punctuation">(</span><span class="token string">"India"</span><span class="token punctuation">)</span>
+my_function<span class="token punctuation">(</span><span class="token punctuation">)</span>
+my_function<span class="token punctuation">(</span><span class="token string">"Brazil"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li>默认值参数在函数声明的时候已经赋值,可以不传参数.</li>
+</ul>
+<h5 id="6-混合参数"><a href="#6-混合参数" class="headerlink" title="6.混合参数"></a>6.混合参数</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">my_function</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> <span class="token operator">*</span>hobby<span class="token punctuation">,</span> sex <span class="token operator">=</span> <span class="token string">'male'</span><span class="token punctuation">,</span> <span class="token operator">**</span>family<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"I am {name} {sex} {hobby} {family}"</span><span class="token punctuation">)</span>
+my_function<span class="token punctuation">(</span><span class="token string">"Jivan"</span><span class="token punctuation">,</span> <span class="token string">"sing"</span><span class="token punctuation">,</span> <span class="token string">"movie"</span><span class="token punctuation">,</span> father <span class="token operator">=</span> <span class="token string">"dad"</span><span class="token punctuation">,</span> mother <span class="token operator">=</span> <span class="token string">"mom"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>声明函数是参数的顺序:<ul>
-<li>位置参数 &gt; <em>args &gt; 默认值参数 &gt; *</em>kwargs<h5 id="7-不定长参数和任意关键字参数传参"><a href="#7-不定长参数和任意关键字参数传参" class="headerlink" title="7.不定长参数和任意关键字参数传参"></a>7.不定长参数和任意关键字参数传参</h5><pre><code class="python">def func(*args,**kwargs):
-return args , kwargs
-func(*[1,2,3,4,5], **{&#39;a&#39;:&#39;1&#39;,&#39;b&#39;:&#39;2&#39;})
-lis = [6,7,8,9,10]
-dic = {&#39;c&#39;:&#39;3&#39;,&#39;d&#39;:&#39;4&#39;}
-func(*lis, **dic)</code></pre>
-</li>
+<li>位置参数 &gt; <em>args &gt; 默认值参数 &gt; *</em>kwargs</li>
 </ul>
 </li>
+</ul>
+<h5 id="7-不定长参数和任意关键字参数传参"><a href="#7-不定长参数和任意关键字参数传参" class="headerlink" title="7.不定长参数和任意关键字参数传参"></a>7.不定长参数和任意关键字参数传参</h5><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token operator">*</span>args<span class="token punctuation">,</span><span class="token operator">**</span>kwargs<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> args <span class="token punctuation">,</span> kwargs
+func<span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">**</span><span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">:</span><span class="token string">'1'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">:</span><span class="token string">'2'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+lis <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">]</span>
+dic <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'c'</span><span class="token punctuation">:</span><span class="token string">'3'</span><span class="token punctuation">,</span><span class="token string">'d'</span><span class="token punctuation">:</span><span class="token string">'4'</span><span class="token punctuation">}</span>
+func<span class="token punctuation">(</span><span class="token operator">*</span>lis<span class="token punctuation">,</span> <span class="token operator">**</span>dic<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
 <li>不定长参数传参的时候可以在<strong>可迭代对象</strong>前面加*号.</li>
 <li>任意关键字参数传参的时候可以在<strong>字典前面</strong>加**.</li>
 </ul>
@@ -616,6 +638,10 @@ func(*lis, **dic)</code></pre>
                             
                                 <a href="/tags/Python/">
                                     <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%87%BD%E6%95%B0/">
+                                    <span class="chip bg-color">函数</span>
                                 </a>
                             
                         </div>
@@ -781,45 +807,56 @@ func(*lis, **dic)</code></pre>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/2020/02/23/Python%E4%B9%8B%E5%87%BD%E6%95%B0/">
+                <a href="/2020/02/23/%E5%9D%9A%E6%8C%81%E5%BE%88cool/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="Python之函数">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="坚持很cool">
                         
-                        <span class="card-title">Python之函数</span>
+                        <span class="card-title">坚持很cool</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            函数(function)1.简介A function is a block of code which only runs when it is called.
-You can pass data, known as parameters,
+                            东野圭吾：放弃不难，但坚持一定很酷放弃不难，但坚持一定很酷。
+​           ——《解忧杂货店》 
+
+01 世上所有的坚持，都是因为热爱 
+
+有一次，先生开车的时候，我问他：“你曾经坚持一件事最长的时间是多久？”
+先生打趣道：“打游
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-02-23
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jivan
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%8A%B1%E5%BF%97/" class="post-category">
+                                    励志
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
+                    <a href="/tags/%E5%9D%9A%E6%8C%81/">
+                        <span class="chip bg-color">坚持</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%8A%B1%E5%BF%97/">
+                        <span class="chip bg-color">励志</span>
                     </a>
                     
                 </div>
@@ -833,7 +870,7 @@ You can pass data, known as parameters,
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/02/19/test-my-site/">
+                <a href="/2020/02/19/PARAMETER%E5%92%8CARGUMENT%E7%9A%84%E5%8C%BA%E5%88%AB/">
                     <div class="card-image">
                         
                         
@@ -856,8 +893,12 @@ paramet
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jivan
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%8B%B1%E8%AF%AD/" class="post-category">
+                                    计算机英语
+                                </a>
+                            
                             
                         </span>
                     </div>
@@ -1038,8 +1079,8 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             Copyright&nbsp;&copy;
             <span id="year">2020</span>
             <a href="http://www.wensss.life" target="_blank">Jivan</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            |&nbsp;Powered by&nbsp;<a href="http://www.wensss.life/" target="_blank">Jivan</a>
+            |&nbsp;Theme&nbsp;<a href="http://www.wensss.life/" target="_blank">Jivan</a> 
             <br>
             
             
