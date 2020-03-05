@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Python之字符串, Jivan">
+    <meta name="keywords" content="Python之字符串方法, Jivan">
     <meta name="description" content="万恶之源,python笔记之字符串操作">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Python之字符串 | Jivan</title>
+    <title>Python之字符串方法 | Jivan</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -304,12 +304,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Python之字符串</h1>
+                    <h1 class="description center-align post-title">Python之字符串方法</h1>
                 </div>
             </div>
         </div>
@@ -462,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-24
+                    2020-03-05
                 </div>
                 
 
@@ -477,7 +477,441 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="python之字符串"><a href="#python之字符串" class="headerlink" title="python之字符串"></a>python之字符串</h1><p>python中字符串对象提供了很多方法来操作字符串，功能相当丰富。</p>
+<blockquote>
+<p>print(dir(str))</p>
+<p>[……….’capitalize’, ‘casefold’, ‘center’, ‘count’, ‘encode’, ‘endswith’, ‘expandtabs’, ‘find’, ‘format’, ‘format_map’, ‘index’, ‘isalnum’, ‘isalpha’, ‘isdecimal’, ‘isdigit’, ‘isidentifier’, ‘islower’, ‘isnumeric’, ‘isprintable’, ‘isspace’, ‘istitle’, ‘isupper’, ‘join’, ‘ljust’, ‘lower’, ‘lstrip’, ‘maketrans’, ‘partition’, ‘replace’, ‘rfind’, ‘rindex’, ‘rjust’, ‘rpartition’, ‘rsplit’, ‘rstrip’, ‘split’, ‘splitlines’, ‘startswith’, ‘strip’, ‘swapcase’, ‘title’, ‘translate’, ‘upper’, ‘zfill’]</p>
+</blockquote>
+<p>这些方法的使用说明见<a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank" rel="noopener">官方文档:string methods</a>，本文对它们进行详细解释，各位以后可将本文当作手册。</p>
+<p>这里没有模式匹配(正则)相关的功能。python中要使用模式匹配相关的方法操作字符串，需要<code>import re</code>导入re模块。关于正则模式匹配，参见：<a href="https://docs.python.org/3/library/re.html#module-contents" target="_blank" rel="noopener">re Module Contents</a>。</p>
+<p>注意，python中<strong>字符串是不可变对象</strong>，所以所有修改和生成字符串的操作的实现方法都是另一个内存片段中新生成一个字符串对象。例如，<code>&#39;abc&#39;.upper()</code>将会在划分另一个内存片段，并将返回的<code>ABC</code>保存在此内存中。</p>
+<p>下文出现的”S”表示待操作的字符串。本文没有对<code>casefold,encode,format,format_map</code>进行介绍，前两者和unicode有关，后两者内容有点太多。</p>
+<h1 id="1-大小写转换"><a href="#1-大小写转换" class="headerlink" title="1.大小写转换"></a>1.大小写转换</h1><h2 id="1-1-lower、upper"><a href="#1-1-lower、upper" class="headerlink" title="1.1 lower、upper"></a>1.1 lower、upper</h2><blockquote>
+<p>S.lower()<br>S.upper()</p>
+</blockquote>
+<p>返回S字符串的小写、大写格式。(注意，这是新生成的字符串，在另一片内存片段中，后文将不再解释这种行为)</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'ab XY'</span><span class="token punctuation">.</span>lower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ab xy
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'ab XY'</span><span class="token punctuation">.</span>upper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+AB XY<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="1-2-title、capitalize"><a href="#1-2-title、capitalize" class="headerlink" title="1.2 title、capitalize"></a>1.2 title、capitalize</h2><blockquote>
+<p>S.title()<br>S.capitalize()</p>
+</blockquote>
+<p>前者返回S字符串中所有单词首字母大写且其他字母小写的格式，后者返回首字母大写、其他字母全部小写的新字符串。</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'ab XY'</span><span class="token punctuation">.</span>title<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Ab Xy
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc DE'</span><span class="token punctuation">.</span>capitalize<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Abc de<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="1-3-swapcase"><a href="#1-3-swapcase" class="headerlink" title="1.3 swapcase"></a>1.3 swapcase</h2><blockquote>
+<p>S.swapcase()</p>
+</blockquote>
+<p><code>swapcase()</code>对S中的所有字符串做大小写转换(大写–&gt;小写，小写–&gt;大写)。</p>
+<pre class="line-numbers language-python"><code class="language-python">
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc XYZ'</span><span class="token punctuation">.</span>swapcase<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ABC xyz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h1 id="2-isXXX判断"><a href="#2-isXXX判断" class="headerlink" title="2.isXXX判断"></a>2.isXXX判断</h1><h2 id="2-1-isalpha-isdecimal-isdigit-isnumeric-isalnum"><a href="#2-1-isalpha-isdecimal-isdigit-isnumeric-isalnum" class="headerlink" title="2.1 isalpha,isdecimal,isdigit,isnumeric,isalnum"></a>2.1 isalpha,isdecimal,isdigit,isnumeric,isalnum</h2><blockquote>
+<p>S.isdecimal()<br>S.isdigit()<br>S.isnumeric()<br>S.isalpha()<br>S.isalnum()</p>
+</blockquote>
+<p>测试字符串S是否是数字、字母、字母或数字。对于非Unicode字符串，前3个方法是等价的。</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'34'</span><span class="token punctuation">.</span>isdigit<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">.</span>isalpha<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'a34'</span><span class="token punctuation">.</span>isalnum<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-2-islower-isupper-istitle"><a href="#2-2-islower-isupper-istitle" class="headerlink" title="2.2 islower,isupper,istitle"></a>2.2 islower,isupper,istitle</h2><blockquote>
+<p>S.islower()<br>S.isupper()<br>S.istitle()</p>
+</blockquote>
+<p>判断是否小写、大写、首字母大写。要求S中至少要包含一个字符串字符，否则直接返回False。例如不能是纯数字。</p>
+<p>注意，<code>istitle()</code>判断时会对每个单词的首字母边界判断。例如，<code>word1 Word2</code>、<code>word1_Word2</code>、<code>word1()Word2</code>中都包含两个单词，它们的首字母都是”w”和”W”。因此，如果用<code>istitle()</code>去判断它们，将返回False，因为<code>w</code>是小写。</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'a34'</span><span class="token punctuation">.</span>islower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'AB'</span><span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa'</span><span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa Bc'</span><span class="token punctuation">.</span>istitle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa_Bc'</span><span class="token punctuation">.</span>istitle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa bc'</span><span class="token punctuation">.</span>istitle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa_bc'</span><span class="token punctuation">.</span>istitle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+
+<span class="token comment" spellcheck="true"># 下面的返回False，因为非首字母C不是小写</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa BC'</span><span class="token punctuation">.</span>istitle<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="2-3-isspace-isprintable-isidentifier"><a href="#2-3-isspace-isprintable-isidentifier" class="headerlink" title="2.3 isspace,isprintable,isidentifier"></a>2.3 isspace,isprintable,isidentifier</h2><blockquote>
+<p>S.isspace()<br>S.isprintable()<br>S.isidentifier()</p>
+</blockquote>
+<p>分别判断字符串是否是空白(空格、制表符、换行符等)字符、是否是可打印字符(例如制表符、换行符就不是可打印字符，但空格是)、是否满足标识符定义规则。</p>
+<p>例如：</p>
+<p>1.判断是否为空白。没有任何字符是不算是空白。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">.</span>isspace<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">' \t'</span><span class="token punctuation">.</span>isspace<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">.</span>isspace<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">.</span>isspace<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Aa BC'</span><span class="token punctuation">.</span>isspace<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.判断是否是可打印字符。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">.</span>isprintable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'\t'</span><span class="token punctuation">.</span>isprintable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'acd'</span><span class="token punctuation">.</span>isprintable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">.</span>isprintable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">.</span>isprintable<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3.判断是否满足标识符定义规则。<br>标识符定义规则为：只能是字母或下划线开头、不能包含除数字、字母和下划线以外的任意字符。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'2abc'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc2'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'_abc2'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'_abc_2'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'_Abc_2'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'Abc_2'</span><span class="token punctuation">.</span>isidentifier<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="3-填充"><a href="#3-填充" class="headerlink" title="3.填充"></a>3.填充</h1><h2 id="3-1-center"><a href="#3-1-center" class="headerlink" title="3.1 center"></a>3.1 center</h2><blockquote>
+<p>S.center(width[, fillchar])</p>
+</blockquote>
+<p>将字符串居中，左右两边使用fillchar进行填充，使得整个字符串的长度为width。fillchar默认为空格。如果width小于字符串的长度，则无法填充直接返回字符串本身(不会创建新字符串对象)。</p>
+<p>例如：</p>
+<p>1.使用下划线填充并居中字符串</p>
+<pre><code>&gt;&gt;&gt; print(&#39;ab&#39;.center(4,&#39;_&#39;))
+_ab_
+&gt;&gt;&gt; print(&#39;ab&#39;.center(5,&#39;_&#39;))
+__ab_</code></pre><p>2.使用默认的空格填充并居中字符串</p>
+<pre><code>&gt;&gt;&gt; print(&#39;ab&#39;.center(4))
+ ab 
+&gt;&gt;&gt; print(len(&#39;ab&#39;.center(4)))
+4</code></pre><p>3.width小于字符串长度</p>
+<pre><code>&gt;&gt;&gt; print(&#39;abcde&#39;.center(3))
+abcde</code></pre><h2 id="3-2-ljust和rjust"><a href="#3-2-ljust和rjust" class="headerlink" title="3.2 ljust和rjust"></a>3.2 ljust和rjust</h2><blockquote>
+<p>S.ljust(width[, fillchar])<br>S.rjust(width[, fillchar])</p>
+</blockquote>
+<p><code>ljust()</code>使用fillchar填充在字符串S的右边，使得整体长度为width。<code>rjust()</code>则是填充在左边。如果不指定fillchar，则默认使用空格填充。</p>
+<p>如果width小于或等于字符串S的长度，则无法填充，直接返回字符串S(不会创建新字符串对象)。</p>
+<p>例如：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'xyz'</span><span class="token punctuation">.</span>ljust<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'_'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+xyz__
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'xyz'</span><span class="token punctuation">.</span>rjust<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token string">'_'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+__xyz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="3-3-zfill"><a href="#3-3-zfill" class="headerlink" title="3.3 zfill"></a>3.3 zfill</h2><blockquote>
+<p>S.zfill(width)</p>
+</blockquote>
+<p>用0填充在字符串S的左边使其长度为width。如果S前有正负号<code>+/-</code>，则0填充在这两个符号的后面，且符号也算入长度。</p>
+<p>如果width小于或等于S的长度，则无法填充，直接返回S本身(不会创建新字符串对象)。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'abc'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token number">00abc</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'-abc'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token number">0abc</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'+abc'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token operator">+</span><span class="token number">0abc</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'42'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token number">00042</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'-42'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token number">0042</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'+42'</span><span class="token punctuation">.</span>zfill<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token operator">+</span><span class="token number">0042</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h1 id="4-子串搜索"><a href="#4-子串搜索" class="headerlink" title="4.子串搜索"></a>4.子串搜索</h1><h2 id="4-1-count"><a href="#4-1-count" class="headerlink" title="4.1 count"></a>4.1 count</h2><blockquote>
+<p>S.count(sub[, start[, end]])</p>
+</blockquote>
+<p>返回字符串S中子串sub出现的次数，可以指定从哪里开始计算(start)以及计算到哪里结束(end)，索引从0开始计算，不包括end边界。</p>
+<p>例如：</p>
+<pre><code>&gt;&gt;&gt; print(&#39;xyabxyxy&#39;.count(&#39;xy&#39;))
+3
+
+# 次数2，因为从index=1算起，即从&#39;y&#39;开始查找，查找的范围为&#39;yabxyxy&#39;
+&gt;&gt;&gt; print(&#39;xyabxyxy&#39;.count(&#39;xy&#39;,1))
+2
+
+# 次数1，因为不包括end，所以查找的范围为&#39;yabxyx&#39;
+&gt;&gt;&gt; print(&#39;xyabxyxy&#39;.count(&#39;xy&#39;,1,7))
+1
+
+# 次数2，因为查找的范围为&#39;yabxyxy&#39;
+&gt;&gt;&gt; print(&#39;xyabxyxy&#39;.count(&#39;xy&#39;,1,8))
+2</code></pre><h2 id="4-2-endswith和startswith"><a href="#4-2-endswith和startswith" class="headerlink" title="4.2 endswith和startswith"></a>4.2 endswith和startswith</h2><blockquote>
+<p>S.endswith(suffix[, start[, end]])<br>S.startswith(prefix[, start[, end]])</p>
+</blockquote>
+<p><code>endswith()</code>检查字符串S是否以suffix结尾，返回布尔值的True和False。suffix可以是一个元组(tuple)。可以指定起始start和结尾end的搜索边界。</p>
+<p>同理<code>startswith()</code>用来判断字符串S是否是以prefix开头。</p>
+<p>例如：</p>
+<p>1.suffix是普通的字符串时。</p>
+<pre><code>&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith(&#39;xyz&#39;))
+True
+　
+# False，因为搜索范围为&#39;yz&#39;
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith(&#39;xyz&#39;,4))
+False
+　
+# False，因为搜索范围为&#39;abcxy&#39;
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith(&#39;xyz&#39;,0,5))
+False
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith(&#39;xyz&#39;,0,6))
+True</code></pre><p>2.suffix是元组(tuple)时，只要tuple中任意一个元素满足endswith的条件，就返回True。</p>
+<pre><code># tuple中的&#39;xyz&#39;满足条件
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith((&#39;ab&#39;,&#39;xyz&#39;)))
+True
+　
+# tuple中&#39;ab&#39;和&#39;xy&#39;都不满足条件
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith((&#39;ab&#39;,&#39;xy&#39;)))
+False
+　
+# tuple中的&#39;z&#39;满足条件
+&gt;&gt;&gt; print(&#39;abcxyz&#39;.endswith((&#39;ab&#39;,&#39;xy&#39;,&#39;z&#39;)))
+True</code></pre><h2 id="4-3-find-rfind和index-rindex"><a href="#4-3-find-rfind和index-rindex" class="headerlink" title="4.3 find,rfind和index,rindex"></a>4.3 find,rfind和index,rindex</h2><blockquote>
+<p>S.find(sub[, start[, end]])<br>S.rfind(sub[, start[, end]])¶<br>S.index(sub[, start[, end]])<br>S.rindex(sub[, start[, end]])</p>
+</blockquote>
+<p>find()搜索字符串S中是否包含子串sub，如果包含，则返回sub的索引位置，否则返回”-1”。可以指定起始start和结束end的搜索位置。</p>
+<p>index()和find()一样，唯一不同点在于当找不到子串时，抛出<code>ValueError</code>错误。</p>
+<p>rfind()则是返回搜索到的最右边子串的位置，如果只搜索到一个或没有搜索到子串，则和find()是等价的。</p>
+<p>同理rindex()。</p>
+<p>例如：</p>
+<pre><code>&gt;&gt;&gt; print(&#39;abcxyzXY&#39;.find(&#39;xy&#39;))
+3
+&gt;&gt;&gt; print(&#39;abcxyzXY&#39;.find(&#39;Xy&#39;))
+-1
+&gt;&gt;&gt; print(&#39;abcxyzXY&#39;.find(&#39;xy&#39;,4))
+-1
+
+&gt;&gt;&gt; print(&#39;xyzabcabc&#39;.find(&#39;bc&#39;))
+4
+&gt;&gt;&gt; print(&#39;xyzabcabc&#39;.rfind(&#39;bc&#39;))
+7
+
+&gt;&gt;&gt; print(&#39;xyzabcabc&#39;.rindex(&#39;bcd&#39;))
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+ValueError: substring not found</code></pre><p>可以使用<code>in</code>操作符来判断字符串S是否包含子串sub，它返回的不是索引位置，而是布尔值。</p>
+<pre><code>&gt;&gt;&gt; &#39;xy&#39; in &#39;abxycd&#39;
+True
+&gt;&gt;&gt; &#39;xyz&#39; in &#39;abxycd&#39;
+False</code></pre><h1 id="5-替换"><a href="#5-替换" class="headerlink" title="5.替换"></a>5.替换</h1><h2 id="5-1-replace"><a href="#5-1-replace" class="headerlink" title="5.1 replace"></a>5.1 replace</h2><blockquote>
+<p>S.replace(old, new[, count])</p>
+</blockquote>
+<p>将字符串中的子串old替换为new字符串，如果给定count，则表示只替换前count个old子串。如果S中搜索不到子串old，则无法替换，直接返回字符串S(不创建新字符串对象)。</p>
+<pre><code>&gt;&gt;&gt; print(&#39;abcxyzoxy&#39;.replace(&#39;xy&#39;,&#39;XY&#39;))
+abcXYzoXY
+&gt;&gt;&gt; print(&#39;abcxyzoxy&#39;.replace(&#39;xy&#39;,&#39;XY&#39;,1))
+abcXYzoxy
+&gt;&gt;&gt; print(&#39;abcxyzoxy&#39;.replace(&#39;mn&#39;,&#39;XY&#39;,1))
+abcxyzoxy</code></pre><h2 id="5-2-expandtabs"><a href="#5-2-expandtabs" class="headerlink" title="5.2 expandtabs"></a>5.2 expandtabs</h2><blockquote>
+<p>S.expandtabs(N)</p>
+</blockquote>
+<p>将字符串S中的<code>\t</code>替换为一定数量的空格。默认N=8。</p>
+<p>注意，<code>expandtabs(8)</code>不是将<code>\t</code>直接替换为8个空格。例如<code>&#39;xyz\tab&#39;.expandtabs()</code>会将<code>\t</code>替换为5个空格，因为”xyz”占用了3个字符位。</p>
+<p>所以，在替换”\t”为空格时，会减掉”\t”前面的字符数量。如果”\t”的前面正好没有字符，则直接将”\t”替换为N个空格。</p>
+<p>另外，它不会替换换行符(<code>\n</code>或<code>\r</code>)。</p>
+<p>例如：</p>
+<pre><code>&gt;&gt;&gt; &#39;01\t012\t0123\t01234&#39;.expandtabs(4)
+&#39;01  012 0123    01234&#39;          --&gt; 2个空格、1个空格、4个空格
+
+&gt;&gt;&gt; &#39;01\t012\t0123\t01234&#39;.expandtabs(8)
+&#39;01      012     0123    01234&#39;  --&gt; 6个空格、5个空格、4个空格
+
+&gt;&gt;&gt; &#39;01\t012\t0123\t01234&#39;.expandtabs(7)
+&#39;01     012    0123   01234&#39;     --&gt; 5个空格、4个空格、3个空格
+
+&gt;&gt;&gt; print(&#39;012\t0123\n01234&#39;.expandtabs(7))
+012    0123        --&gt; 4个空格
+01234</code></pre><h2 id="5-3-translate和maketrans"><a href="#5-3-translate和maketrans" class="headerlink" title="5.3 translate和maketrans"></a>5.3 translate和maketrans</h2><blockquote>
+<p>S.translate(table)<br>static str.maketrans(x[, y[, z]])</p>
+</blockquote>
+<p><code>str.maketrans()</code>生成一个字符一 一映射的table，然后使用<code>translate(table)</code>对字符串S中的每个字符进行映射。</p>
+<p>如果你熟悉Linux，就知道tr命令，translate()实现的功能和tr是类似的。</p>
+<p>例如，现在想要对”I love Fairy”做一个简单的加密，将里面部分字符都替换为数字，这样别人就不知道转换后的这句话是什么意思。</p>
+<pre><code>&gt;&gt;&gt; in_str=&#39;abcxyz&#39;
+&gt;&gt;&gt; out_str=&#39;123456&#39;
+
+# maketrans()生成映射表
+&gt;&gt;&gt; map_table=str.maketrans(in_str,out_str)
+
+# 使用translate()进行映射
+&gt;&gt;&gt; my_love=&#39;I love Fairy&#39;
+&gt;&gt;&gt; result=my_love.translate(map_table)
+&gt;&gt;&gt; print(result)
+I love F1ir5</code></pre><p>注意，<code>maketrans(x[, y[, z]])</code>中的x和y都是字符串，且长度必须相等。</p>
+<p>如果<code>maketrans(x[, y[, z]])</code>给定了第三个参数z，则这个参数字符串中的每个字符都会被映射为None。</p>
+<p>例如，不替换”a”和”y”。</p>
+<pre><code>&gt;&gt;&gt; in_str=&#39;abcxyz&#39;
+&gt;&gt;&gt; out_str=&#39;123456&#39;
+&gt;&gt;&gt; map_table=str.maketrans(in_str,out_str,&#39;ay&#39;)
+&gt;&gt;&gt; my_love=&#39;I love Fairy&#39;
+&gt;&gt;&gt; result=my_love.translate(map_table)
+&gt;&gt;&gt; print(result)
+I love Fir</code></pre><h1 id="6-分割"><a href="#6-分割" class="headerlink" title="6.分割"></a>6.分割</h1><h2 id="6-1-partition和rpartition"><a href="#6-1-partition和rpartition" class="headerlink" title="6.1 partition和rpartition"></a>6.1 partition和rpartition</h2><blockquote>
+<p>S.partition(sep)<br>S.rpartition(sep)</p>
+</blockquote>
+<p>搜索字符串S中的子串sep，并从sep处对S进行分割，最后返回一个包含3元素的元组：sep左边的部分是元组的第一个元素，sep自身是元组的二个元素，sep右边是元组的第三个元素。</p>
+<p><code>partition(sep)</code>从左边第一个sep进行分割，<code>rpartition(sep)</code>从右边第一个sep进行分割。</p>
+<p>如果搜索不到sep，则返回的3元素元组中，有两个元素为空。partition()是后两个元素为空，rpartition()是前两个元素为空。</p>
+<p>例如：</p>
+<pre><code># 只搜索到一个sep时，两者结果相同
+&gt;&gt;&gt; print(&#39;abcxyzopq&#39;.partition(&#39;xy&#39;))
+(&#39;abc&#39;, &#39;xy&#39;, &#39;zopq&#39;)
+&gt;&gt;&gt; print(&#39;abcxyzopq&#39;.rpartition(&#39;xy&#39;))
+(&#39;abc&#39;, &#39;xy&#39;, &#39;zopq&#39;)
+
+# 搜索到多个sep时，分别从左第一个、右第一个sep分割
+&gt;&gt;&gt; print(&#39;abcxyzxyopq&#39;.partition(&#39;xy&#39;))
+(&#39;abc&#39;, &#39;xy&#39;, &#39;zxyopq&#39;)
+&gt;&gt;&gt; print(&#39;abcxyzxyopq&#39;.rpartition(&#39;xy&#39;))
+(&#39;abcxyz&#39;, &#39;xy&#39;, &#39;opq&#39;)
+
+# 搜索不到sep
+&gt;&gt;&gt; print(&#39;abcxyzxyopq&#39;.partition(&#39;xyc&#39;))
+(&#39;abcxyzxyopq&#39;, &#39;&#39;, &#39;&#39;)
+&gt;&gt;&gt; print(&#39;abcxyzxyopq&#39;.rpartition(&#39;xyc&#39;))
+(&#39;&#39;, &#39;&#39;, &#39;abcxyzxyopq&#39;)</code></pre><h2 id="6-2-split、rsplit和splitlines"><a href="#6-2-split、rsplit和splitlines" class="headerlink" title="6.2 split、rsplit和splitlines"></a>6.2 split、rsplit和splitlines</h2><blockquote>
+<p>S.split(sep=None, maxsplit=-1)<br>S.rsplit(sep=None, maxsplit=-1)<br>S.splitlines([keepends=True])</p>
+</blockquote>
+<p>都是用来分割字符串，并生成一个列表。</p>
+<p><code>split()</code>根据sep对S进行分割，maxsplit用于指定分割次数，如果不指定maxsplit或者给定值为”-1”，则会从左向右搜索并且每遇到sep一次就分割直到搜索完字符串。如果不指定sep或者指定为None，则改变分割算法：以空格为分隔符，且将连续的空白压缩为一个空格。</p>
+<p><code>rsplit()</code>和<code>split()</code>是一样的，只不过是从右边向左边搜索。</p>
+<p>splitlines()用来专门用来分割换行符。虽然它有点像<code>split(&#39;\n&#39;)</code>或<code>split(&#39;\r\n&#39;)</code>，但它们有些区别，见下文解释。</p>
+<p>首先是split()的示例分析(<code>rsplit()</code>示例略)。</p>
+<pre><code># sep为单个字符时
+&gt;&gt;&gt; &#39;1,2,3&#39;.split(&#39;,&#39;)
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+
+&gt;&gt;&gt; &#39;1,2,3&#39;.split(&#39;,&#39;,1)
+[&#39;1&#39;, &#39;2,3&#39;]    # 只分割了一次
+
+&gt;&gt;&gt; &#39;1,2,,3&#39;.split(&#39;,&#39;)
+[&#39;1&#39;, &#39;2&#39;, &#39;&#39;, &#39;3&#39;]  # 不会压缩连续的分隔符
+
+&gt;&gt;&gt; &#39;&lt;hello&gt;&lt;&gt;&lt;world&gt;&#39;.split(&#39;&lt;&#39;)
+[&#39;&#39;, &#39;hello&gt;&#39;, &#39;&gt;&#39;, &#39;world&gt;&#39;]
+
+# sep为多个字符时
+&gt;&gt;&gt; &#39;&lt;hello&gt;&lt;&gt;&lt;world&gt;&#39;.split(&#39;&lt;&gt;&#39;)
+[&#39;&lt;hello&gt;&#39;, &#39;&lt;world&gt;&#39;]
+
+# 不指定sep时
+&gt;&gt;&gt; &#39;1 2 3&#39;.split()
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+
+&gt;&gt;&gt; &#39;1 2 3&#39;.split(maxsplit=1)
+[&#39;1&#39;, &#39;2 3&#39;]
+
+&gt;&gt;&gt; &#39;   1    2   3   &#39;.split()
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+
+&gt;&gt;&gt; &#39;   1    2   3  \n&#39;.split()
+[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;]
+
+# 显式指定sep为空格、制表符、换行符时
+&gt;&gt;&gt; &#39; 1  2  3  \n&#39;.split(&#39; &#39;)
+[&#39;&#39;, &#39;1&#39;, &#39;&#39;, &#39;2&#39;, &#39;&#39;, &#39;3&#39;, &#39;&#39;, &#39;\n&#39;]
+
+&gt;&gt;&gt; &#39; 1  2  3  \n&#39;.split(&#39;\t&#39;)
+[&#39; 1  2  3  \n&#39;]
+
+&gt;&gt;&gt; &#39; 1 2\n3 \n&#39;.split(&#39;\n&#39;)
+[&#39; 1 2&#39;, &#39;3 &#39;, &#39;&#39;]  # 注意列表的最后一项&#39;&#39;
+
+&gt;&gt;&gt; &#39;&#39;.split(&#39;\n&#39;)
+[&#39;&#39;]</code></pre><p>再是splitlines()的示例分析。</p>
+<p><code>splitlines()</code>中可以指定各种换行符，常见的是<code>\n</code>、<code>\r</code>、<code>\r\n</code>。如果指定keepends为True，则保留所有的换行符。</p>
+<pre><code>&gt;&gt;&gt; &#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines()
+[&#39;ab c&#39;, &#39;&#39;, &#39;de fg&#39;, &#39;kl&#39;]
+
+&gt;&gt;&gt; &#39;ab c\n\nde fg\rkl\r\n&#39;.splitlines(keepends=True)
+[&#39;ab c\n&#39;, &#39;\n&#39;, &#39;de fg\r&#39;, &#39;kl\r\n&#39;]</code></pre><p>将split()和splitlines()相比较一下：</p>
+<pre><code>#### split()
+&gt;&gt;&gt; &#39;&#39;.split(&#39;\n&#39;)
+[&#39;&#39;]            # 因为没换行符可分割
+
+&gt;&gt;&gt; &#39;One line\n&#39;.split(&#39;\n&#39;)
+[&#39;One line&#39;, &#39;&#39;]
+
+#### splitlines()
+&gt;&gt;&gt; &quot;&quot;.splitlines()
+[]              # 因为没有换行符可分割
+
+&gt;&gt;&gt; &#39;Two lines\n&#39;.splitlines()
+[&#39;Two lines&#39;]</code></pre><h1 id="7-join"><a href="#7-join" class="headerlink" title="7.join"></a>7.join</h1><blockquote>
+<p>S.join(iterable)</p>
+</blockquote>
+<p>将可迭代对象(iterable)中的元素使用S连接起来。注意，iterable中必须全部是字符串类型，否则报错。</p>
+<p>如果你还是python的初学者，还不知道iterable是什么，却想来看看join的具体语法，那么你可以暂时将它理解为：字符串string、列表list、元组tuple、字典dict、集合set。</p>
+<p>例如：</p>
+<p>1.字符串</p>
+<pre><code>&gt;&gt;&gt; L=&#39;python&#39;
+&gt;&gt;&gt; &#39;_&#39;.join(L)
+&#39;p_y_t_h_o_n&#39;</code></pre><p>2.元组</p>
+<pre><code>&gt;&gt;&gt; L1=(&#39;1&#39;,&#39;2&#39;,&#39;3&#39;)
+&gt;&gt;&gt; &#39;_&#39;.join(L1)
+&#39;1_2_3&#39;</code></pre><p>3.集合。注意，集合无序。</p>
+<pre><code>&gt;&gt;&gt; L2={&#39;p&#39;,&#39;y&#39;,&#39;t&#39;,&#39;h&#39;,&#39;o&#39;,&#39;n&#39;}
+&gt;&gt;&gt; &#39;_&#39;.join(L2)
+&#39;n_o_p_h_y_t&#39;</code></pre><p>4.列表</p>
+<pre><code>&gt;&gt;&gt; L2=[&#39;py&#39;,&#39;th&#39;,&#39;o&#39;,&#39;n&#39;]
+&gt;&gt;&gt; &#39;_&#39;.join(L2)
+&#39;py_th_o_n&#39;</code></pre><p>5.字典</p>
+<pre><code>&gt;&gt;&gt; L3={&#39;name&#39;:&quot;malongshuai&quot;,&#39;gender&#39;:&#39;male&#39;,&#39;from&#39;:&#39;China&#39;,&#39;age&#39;:18}
+&gt;&gt;&gt; &#39;_&#39;.join(L3)
+&#39;name_gender_from_age&#39;</code></pre><p>6.iterable参与迭代的每个元素必须是字符串类型，不能包含数字或其他类型。</p>
+<pre><code>&gt;&gt;&gt; L1=(1,2,3)
+&gt;&gt;&gt; &#39;_&#39;.join(L1)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in &lt;module&gt;
+TypeError: sequence item 0: expected str instance, int found</code></pre><p>以下两种也不能join。</p>
+<pre><code>&gt;&gt;&gt; L1=(&#39;ab&#39;,2)
+&gt;&gt;&gt; L2=(&#39;AB&#39;,{&#39;a&#39;,&#39;cd&#39;})</code></pre><p>将join()时的元素连接符指定为空时，则会将可迭代对象的每个元素组成一个连接起来的字符串。有时候，这是很有用的。</p>
+<pre><code>&gt;&gt;&gt; L=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;,&#39;d&#39;]
+&gt;&gt;&gt; &#39;&#39;.join(L)
+&#39;abcd&#39;</code></pre><h1 id="8-修剪：strip、lstrip和rstrip"><a href="#8-修剪：strip、lstrip和rstrip" class="headerlink" title="8.修剪：strip、lstrip和rstrip"></a>8.修剪：strip、lstrip和rstrip</h1><blockquote>
+<p>S.strip([chars])<br>S.lstrip([chars])<br>S.rstrip([chars])</p>
+</blockquote>
+<p>分别是移除左右两边、左边、右边的字符char。如果不指定chars或者指定为<code>None</code>，则默认移除空白(空格、制表符、换行符)。</p>
+<p>唯一需要注意的是，chars可以是多个字符序列。在移除时，只要是这个序列中的字符，都会被移除。</p>
+<p>例如：</p>
+<p>1.移除单个字符或空白。</p>
+<pre><code>&gt;&gt;&gt; &#39;   spacious   &#39;.lstrip()
+&#39;spacious   &#39;
+　
+&gt;&gt;&gt; &#39;   spacious   &#39;.rstrip()
+&#39;   spacious&#39;
+　
+&gt;&gt;&gt; &#39;spacious   &#39;.lstrip(&#39;s&#39;)
+&#39;pacious   &#39;
+　
+&gt;&gt;&gt; &#39;spacious&#39;.rstrip(&#39;s&#39;)
+&#39;spaciou&#39;</code></pre><p>2.移除字符序列中的字符。</p>
+<pre><code>&gt;&gt;&gt; print(&#39;www.example.com&#39;.lstrip(&#39;cmowz.&#39;))
+example.com
+&gt;&gt;&gt; print(&#39;wwwz.example.com&#39;.lstrip(&#39;cmowz.&#39;))
+example.com
+&gt;&gt;&gt; print(&#39;wwaw.example.com&#39;.lstrip(&#39;cmowz.&#39;))
+aw.example.com
+&gt;&gt;&gt; print(&#39;www.example.com&#39;.strip(&#39;cmowz.&#39;))
+&#39;example&#39;</code></pre><p>由于<code>www.example.com</code>的前4个字符都是字符序列<code>cmowz.</code>中的字符，所以都被移除，而第五个字符e不在字符序列中，所以修剪到此结束。同理<code>wwwz.example.com</code>。</p>
+<p><code>wwaw.example.com</code>中第3个字符a不是字符序列中的字符，所以修剪到此结束。</p>
+
             </div>
             <hr/>
 
@@ -655,7 +1089,7 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            放弃不难，但坚持一定很酷。 ——《解忧杂货店》
+                            放弃不难，但坚持一定很酷。-《解忧杂货店》
                         
                     </div>
                     <div class="publish-info">
