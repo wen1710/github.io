@@ -481,268 +481,208 @@
 <h2 id="类型-示例"><a href="#类型-示例" class="headerlink" title="   类型           示例"></a>   类型           示例</h2><p>   整数          1234, -24, 0<br>   浮点数        1.23, 1., .2, 3.14e-10<br>   八进制        0o177, 0O177<br>   十六进制      0x9ff, 0X9ff<br>   二进制        0b1010, 0B1010<br>需要说明的几点事项：</p>
 <p>python 3.x中的整数不区分一般整数和长整型整数，3.x版本中的整数支持无穷精度<br>任何时候浮点数都是不精确的。当带有小数点或科学计数的标记符号e或E，就表示这是浮点数<br>当浮点数参与表达式的运算时，会以浮点数的规则进行运算，也就是整数会转换成浮点数类型<br>python中的浮点数精度和C语言的双精度浮点数精度相同<br>整数除了十进制整数外，还可以写成二进制、八进制、十六进制甚至是其它进制的整数，它们的转换方式见后文<br>当一个整数以0b或0B开头，其后都是0、1时，默认识别为二进制整数<br>当一个整数以0o或0O开头(数值零和大、小写的字母o)，其后都是0-7之间的数值时，默认识别为8进制整数<br>当一个整数以0x或0X开始，其后都是[0-9a-fA-F]之间的字符时，默认识别为十六进制<br>python中的数值类型是不可变对象，不可变意味着不可原处修改。假如a = 3333，那么现在内存中会有一个内存块保存数值对象3333，如果修改它，比如对它加上1操作a += 1，python将创建一个新的内存块用来保存新的数值对象3334，而不是在3333那个内存块中直接修改为3334，所以那个原始的数值3333就被丢弃了，它会等待垃圾回收器去回收。关于可变、不可变对象，后面的文章将会经常提到，请先留意这两个词。</p>
 <p>数值基本运算<br>支持最基本的数学运算符号：+ - * / % **、取正负+x -x，地板除法//，除法和取模divmod(x, y)：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>123 + 345<br>468<br>345 - 123<br>222<br>1.5 * 4<br>6.0<br>2/5<br>0.4<br>2 % 3<br>2<br>3 ** 2<br>9<br>3.00 ** 2<br>9.0<br>3 ** 100<br>515377520732011331036461129765621272702107522001</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>a = 3; b = -3<br>-a, -b<br>(-3, 3)<br>divmod(5, 2)<br>(2, 1)<br>可见，python的数值计算方式非常直接，且python 3.x中会自动为整数提供无穷精度。正如上面最后一个计算表达式(3<strong>100)，它将所有数字都显示出来了。就算是计算3</strong>10000，3**1000000，python也不会报错，不过3的100万次方，显然需要花上一段时间来计算。这和其它编程语言有所区别，例如java中计算Math.pow(3,10000)将返回Infinity，表示无穷大。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">123</span> <span class="token operator">+</span> <span class="token number">345</span>
+<span class="token number">468</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">345</span> <span class="token operator">-</span> <span class="token number">123</span>
+<span class="token number">222</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">1.5</span> <span class="token operator">*</span> <span class="token number">4</span>
+<span class="token number">6.0</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">2</span><span class="token operator">/</span><span class="token number">5</span>
+<span class="token number">0.4</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">2</span> <span class="token operator">%</span> <span class="token number">3</span>
+<span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3</span> <span class="token operator">**</span> <span class="token number">2</span>
+<span class="token number">9</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3.00</span> <span class="token operator">**</span> <span class="token number">2</span>
+<span class="token number">9.0</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3</span> <span class="token operator">**</span> <span class="token number">100</span>
+<span class="token number">515377520732011331036461129765621272702107522001</span>
+
+<span class="token operator">>></span><span class="token operator">></span> a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span> b <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span>a<span class="token punctuation">,</span> <span class="token operator">-</span>b
+<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> divmod<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>可见，python的数值计算方式非常直接，且python 3.x中会自动为整数提供无穷精度。正如上面最后一个计算表达式(3<strong>100)，它将所有数字都显示出来了。就算是计算3</strong>10000，3**1000000，python也不会报错，不过3的100万次方，显然需要花上一段时间来计算。这和其它编程语言有所区别，例如java中计算Math.pow(3,10000)将返回Infinity，表示无穷大。</p>
 <p>又是几个注意事项：</p>
 <p>python中的除法运算/得到的结果总是浮点数(例如9/3=3.0)，后面还有一种地板除法(floor)不一样。<br>当数值部分有小数时，会自动转换为浮点数类型进行运算，而且会自动忽略参与运算的小数尾部的0。<br>加号+和乘号<em>也能处理字符串：<br>+可以连接字符串，例如”abc” + “def”得到abcdef<br>*可以重复字符串次数，例如”a”</em>3得到”aaa”，”ab”*3得到”ababab”<br>其它数学运算方法<br>除了上面的基础算术运算符，还支持很多数值类型的运算符，例如：取反(~)、位移(&gt;&gt;)、位与(&amp;)、位异或(^)、逻辑与(and)、逻辑或(or)。</p>
-<p>除此之外，还有几个python的内置数学函数：<br>pow()：求幂，如pow(2,3)=8<br>abs()：求绝对值，如abs(-3)=3<br>round()：四舍五入，如round(3.5)=4<br>int()：取整(截去小数部分)，如int(3.5)=3<br>float()：转换成浮点数，如float(3)=3.0<br>oct()：十进制整数转换成八进制<br>hex()：十进制整数转换成十六进制整数<br>bin()：十进制整数转换成二进制<br>…等等…<br>还有专门的数学模块math、取随机数的模块random等。</p>
+<p>除此之外，还有几个python的内置数学函数：</p>
+<pre class="line-numbers language-python"><code class="language-python">pow<span class="token punctuation">(</span><span class="token punctuation">)</span>：求幂，如pow<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">8</span>
+abs<span class="token punctuation">(</span><span class="token punctuation">)</span>：求绝对值，如abs<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">3</span>
+round<span class="token punctuation">(</span><span class="token punctuation">)</span>：四舍五入，如round<span class="token punctuation">(</span><span class="token number">3.5</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">4</span>
+int<span class="token punctuation">(</span><span class="token punctuation">)</span>：取整<span class="token punctuation">(</span>截去小数部分<span class="token punctuation">)</span>，如int<span class="token punctuation">(</span><span class="token number">3.5</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">3</span>
+float<span class="token punctuation">(</span><span class="token punctuation">)</span>：转换成浮点数，如float<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token number">3.0</span>
+oct<span class="token punctuation">(</span><span class="token punctuation">)</span>：十进制整数转换成八进制
+hex<span class="token punctuation">(</span><span class="token punctuation">)</span>：十进制整数转换成十六进制整数
+bin<span class="token punctuation">(</span><span class="token punctuation">)</span>：十进制整数转换成二进制<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>…等等…<br>还有专门的数学模块math、取随机数的模块random等。</p>
 <p>浮点数<br>由于硬件的原因，使得计算机对于浮点数的处理总是不精确的。</p>
 <p>例如，按照数学运算时，1.1-0.9=0.2，但实际得到的结果为：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>1.1-0.9<br>0.20000000000000007<br>它以高精度的极限趋近的值来显示。上面的趋近结果大于按照数学运算结果，但并不总是如此，例如下面的运算则是小于数学运算的结果：</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>3.3-3.2<br>0.09999999999999964<br>由于浮点数不精确，所以尽量不要对两个浮点数数进行等值==和不等值!=比较.如果非要比较，应该通过它们的减法求绝对值，再与一个足够小(不会影响结果)的值做不等比较。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">1.1</span><span class="token operator">-</span><span class="token number">0.9</span>
+<span class="token number">0.20000000000000007</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>它以高精度的极限趋近的值来显示。上面的趋近结果大于按照数学运算结果，但并不总是如此，例如下面的运算则是小于数学运算的结果：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">3.3</span><span class="token operator">-</span><span class="token number">3.2</span>
+<span class="token number">0.09999999999999964</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>由于浮点数不精确，所以尽量不要对两个浮点数数进行等值==和不等值!=比较.如果非要比较，应该通过它们的减法求绝对值，再与一个足够小(不会影响结果)的值做不等比较。</p>
 <p>例如：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>(3.2-2.8) == 0.4<br>False</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>abs((3.2-2.8)-0.4) &lt; 0.0002<br>True<br>最后，浮点数并非总是输出很长精度的值。正如前面的运算：</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>3.2+3.2<br>6.4<br>3/10<br>0.3<br>浮点数有两个特殊方法，一个是is_integer()，用来测试这个浮点数是否是整数，另一个是as_integer_ratio()，可以将浮点数转换成分子分母组成的元组，不过这个方法并非总是如你所想的那样友好。例如:</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>(3.0).is_integer()<br>True<br>(3.2).is_integer()<br>False</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>(2.5).as_integer_ratio()<br>(5, 2)<br>(2.6).as_integer_ratio()<br>(5854679515581645, 2251799813685248)<br>浮点数总是不精确的，而且不能指定小数位数。但在python中，有一个专门的小数模块decimal，它可以提供精确的小数运算，还有一个分数模块fractions，也能提供精确的小数运算。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">3.2</span><span class="token operator">-</span><span class="token number">2.8</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0.4</span>
+<span class="token boolean">False</span>
+
+<span class="token operator">>></span><span class="token operator">></span> abs<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3.2</span><span class="token operator">-</span><span class="token number">2.8</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">0.4</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.0002</span>
+<span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后，浮点数并非总是输出很长精度的值。正如前面的运算：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">3.2</span><span class="token operator">+</span><span class="token number">3.2</span>
+<span class="token number">6.4</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">3</span><span class="token operator">/</span><span class="token number">10</span>
+<span class="token number">0.3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>浮点数有两个特殊方法，一个是is_integer()，用来测试这个浮点数是否是整数，另一个是as_integer_ratio()，可以将浮点数转换成分子分母组成的元组，不过这个方法并非总是如你所想的那样友好。例如:</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">3.0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>is_integer<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token boolean">True</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">3.2</span><span class="token punctuation">)</span><span class="token punctuation">.</span>is_integer<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token boolean">False</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">2.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>as_integer_ratio<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">2.6</span><span class="token punctuation">)</span><span class="token punctuation">.</span>as_integer_ratio<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">5854679515581645</span><span class="token punctuation">,</span> <span class="token number">2251799813685248</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>浮点数总是不精确的，而且不能指定小数位数。但在python中，有一个专门的小数模块decimal，它可以提供精确的小数运算，还有一个分数模块fractions，也能提供精确的小数运算。</p>
 <p>真除法、Floor除法和小数位截断<br>/：实现的是真除法。在python中，它总是返回浮点数值。<br>//：实现的是floor地板除法，它会去掉除法运算后的小数位，以便得到小于运算结果的最大整数。如果参与运算的有小数，则返回浮点数，否则返回整数<br>在math模块中，有地板函数math.floor()和天花板函数math.ceil()。它们的意义可以根据现实中地板、空气、天花板的高低位置来考虑。地板位于空气之下，地板运算的返回值是比空气小的最大整数，天花板位于空气之上，天花板运算的的返回值是比空气大的最小整数<br>round(x, N)是四舍五入，可以指定四舍五入到哪个小数位<br>math.trunc()是直接截断小数<br>实际上int()函数自身就是字节截断小数的<br>看下面的示例。</p>
 <p>真除法总是返回浮点数。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>9/3<br>3.0<br>10/4<br>2.5<br>10/4.0<br>2.5<br>-9/2<br>-4.5<br>-9/2.0<br>-4.5<br>floor除法返回浮点数还是整数取决于参与运算的数是否包含浮点数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>9 // 3<br>3<br>10 // 4<br>2<br>10 // 4.0<br>2.0<br>对于正数的运算结果，floor除法是直接去除小数位的。对于负数结果，它是取比运算结果更小的负整数。。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">9</span><span class="token operator">/</span><span class="token number">3</span>
+<span class="token number">3.0</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">10</span><span class="token operator">/</span><span class="token number">4</span>
+<span class="token number">2.5</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">10</span><span class="token operator">/</span><span class="token number">4.0</span>
+<span class="token number">2.5</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span><span class="token number">9</span><span class="token operator">/</span><span class="token number">2</span>
+<span class="token operator">-</span><span class="token number">4.5</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span><span class="token number">9</span><span class="token operator">/</span><span class="token number">2.0</span>
+<span class="token operator">-</span><span class="token number">4.5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>floor除法返回浮点数还是整数取决于参与运算的数是否包含浮点数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">9</span> <span class="token operator">//</span> <span class="token number">3</span>
+<span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">10</span> <span class="token operator">//</span> <span class="token number">4</span>
+<span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token number">10</span> <span class="token operator">//</span> <span class="token number">4.0</span>
+<span class="token number">2.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于正数的运算结果，floor除法是直接去除小数位的。对于负数结果，它是取比运算结果更小的负整数。。</p>
 <p>例如，负数结果的floor除法：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>-9 // 3<br>-3<br>-10 // 4<br>-3<br>-10 // 3<br>-4<br>-10 / 4的结果是-2.5，floor要取比它小的最大整数，也就是-3。-10 / 3的结果是-3.3，floor要取比它小的最大整数，也就是-4。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span><span class="token number">9</span> <span class="token operator">//</span> <span class="token number">3</span>
+<span class="token operator">-</span><span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span><span class="token number">10</span> <span class="token operator">//</span> <span class="token number">4</span>
+<span class="token operator">-</span><span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> <span class="token operator">-</span><span class="token number">10</span> <span class="token operator">//</span> <span class="token number">3</span>
+<span class="token operator">-</span><span class="token number">4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>-10 / 4的结果是-2.5，floor要取比它小的最大整数，也就是-3。-10 / 3的结果是-3.3，floor要取比它小的最大整数，也就是-4。</p>
 <p>除了真除法和floor除法，还有四舍五入round()和math.trunc()两种截断小数的方式。例如：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>round(10/4)<br>2<br>round(-5.2/2)<br>-3</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import math      # import表示导入某个模块<br>math.trunc(5/2)<br>2<br>math.trunc(-5.2/2)<br>-2<br>int()也可以直接截断小数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>int(3.6)<br>3<br>int(-3.6)<br>-3<br>数值类型的转换<br>int()可以将字符串或浮点数转换成整数，也可以用于进制数转换<br>float()可以将字符串或整数转换成浮点数<br>实际上它们表示根据给定参数在内存中构造一个整数、浮点数对象，所以可以用来作为类型转换工具。而且，前面已经说过，int()可以用来截断小数位。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>int(3.5)   # 浮点数 -&gt; 整数<br>3<br>int(-3.6)  # 浮点数 -&gt; 整数<br>-3<br>int(‘3’)   # 字符串 -&gt; 整数<br>3</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>float(3)   # 整数 -&gt; 浮点数<br>3.0<br>float(‘3’) # 字符串 -&gt; 浮点数<br>3.0<br>int()还可用于进制数转换，见下文。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> round<span class="token punctuation">(</span><span class="token number">10</span><span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">)</span>
+<span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> round<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">5.2</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token number">3</span>
+
+<span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> math      <span class="token comment" spellcheck="true"># import表示导入某个模块</span>
+<span class="token operator">>></span><span class="token operator">></span> math<span class="token punctuation">.</span>trunc<span class="token punctuation">(</span><span class="token number">5</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token number">2</span>
+<span class="token operator">>></span><span class="token operator">></span> math<span class="token punctuation">.</span>trunc<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">5.2</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>int()也可以直接截断小数。</p>
+<pre><code>&gt;&gt;&gt; int(3.6)
+3
+&gt;&gt;&gt; int(-3.6)
+-3</code></pre><p>数值类型的转换<br>int()可以将字符串或浮点数转换成整数，也可以用于进制数转换<br>float()可以将字符串或整数转换成浮点数<br>实际上它们表示根据给定参数在内存中构造一个整数、浮点数对象，所以可以用来作为类型转换工具。而且，前面已经说过，int()可以用来截断小数位。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token number">3.5</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 浮点数 -> 整数</span>
+<span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">3.6</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true"># 浮点数 -> 整数</span>
+<span class="token operator">-</span><span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 字符串 -> 整数</span>
+<span class="token number">3</span>
+
+<span class="token operator">>></span><span class="token operator">></span> float<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>   <span class="token comment" spellcheck="true"># 整数 -> 浮点数</span>
+<span class="token number">3.0</span>
+<span class="token operator">>></span><span class="token operator">></span> float<span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 字符串 -> 浮点数</span>
+<span class="token number">3.0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>int()还可用于进制数转换，见下文。</p>
 <p>小数类型(Decimal)<br>小数模块decimal，它有一个函数Decimal()，它是精确的，是可以指定小数位数的。</p>
 <p>如果没有python基础，这里能看懂多少算多少，反正小数用的也不多。</p>
 <p>例如，使用浮点数计算</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>0.1 * 3 - 0.3<br>5.551115123125783e-17<br>它本该等于0，但结果却是无限接近于0，因为计算机硬件用于存储数值位数的空间有限。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token number">0.1</span> <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">-</span> <span class="token number">0.3</span>
+<span class="token number">5.551115123125783e-17</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>它本该等于0，但结果却是无限接近于0，因为计算机硬件用于存储数值位数的空间有限。</p>
 <p>使用decimal模块的Decimal()可以构造精确的小数。例如:</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import decimal<br>decimal.Decimal(‘0.1’) * 3 - decimal.Decimal(‘0.3’)<br>Decimal(‘0.0’)<br>注意，Decimal()的参数都是字符串，如果不加引号，它还是会解释成浮点数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>decimal.Decimal(0.1)<br>Decimal(‘0.1000000000000000055511151231257827021181583404541015625’)<br>Decimal()的运算的结果会取最长的小数位数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>decimal.Decimal(‘0.1’) * 3 - decimal.Decimal(‘0.300’)<br>Decimal(‘0.000’)<br>可以设置decimal的精度，也就是小数位数。有两种范围的精度：全局范围、局部范围。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> decimal
+<span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token string">'0.1'</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">-</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token string">'0.3'</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.0'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>注意，Decimal()的参数都是字符串，如果不加引号，它还是会解释成浮点数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">0.1</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.1000000000000000055511151231257827021181583404541015625'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Decimal()的运算的结果会取最长的小数位数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token string">'0.1'</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">-</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token string">'0.300'</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.000'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>可以设置decimal的精度，也就是小数位数。有两种范围的精度：全局范围、局部范围。</p>
 <p>例如，没有设置精度时，会保留很多位数的小数。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import decimal<br>decimal.Decimal(1) / decimal.Decimal(7)<br>Decimal(‘0.1428571428571428571428571429’)<br>设置全局范围的精度为4，即保留4位小数：</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import decimal<br>decimal.getcontext().prec = 4<br>decimal.Decimal(1) / decimal.Decimal(7)<br>Decimal(‘0.1429’)<br>全局范围的精度表示整个线程执行时，这个模块的精度都是4。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> decimal
+<span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.1428571428571428571428571429'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>设置全局范围的精度为4，即保留4位小数：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> decimal
+<span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>getcontext<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>prec <span class="token operator">=</span> <span class="token number">4</span>
+<span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.1429'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>全局范围的精度表示整个线程执行时，这个模块的精度都是4。</p>
 <p>还可以设置局部范围的精度，局部表示退出了这个范围就失效了。使用with/as语句可以设置局部精度，所以退出with/as语句块精度的设置就失效了。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>with decimal.localcontext() as ctx:<br>…     ctx.prec = 2<br>…     decimal.Decimal(1) / decimal.Decimal(7)<br>…<br>Decimal(‘0.14’)</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>decimal.Decimal(1) / decimal.Decimal(7)<br>Decimal(‘0.1429’)     # 因为前面设置了全局精度为4<br>分数(Fraction)<br>分数模块fractions，它有一个函数Fraction()，它可以构建分数。有了分数之后，可以参与运算。分数和浮点数不同，分数是精确的。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">with</span> decimal<span class="token punctuation">.</span>localcontext<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">as</span> ctx<span class="token punctuation">:</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     ctx<span class="token punctuation">.</span>prec <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>     decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.14'</span><span class="token punctuation">)</span>
+
+<span class="token operator">>></span><span class="token operator">></span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> decimal<span class="token punctuation">.</span>Decimal<span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span>
+Decimal<span class="token punctuation">(</span><span class="token string">'0.1429'</span><span class="token punctuation">)</span>     <span class="token comment" spellcheck="true"># 因为前面设置了全局精度为4</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>分数(Fraction)<br>分数模块fractions，它有一个函数Fraction()，它可以构建分数。有了分数之后，可以参与运算。分数和浮点数不同，分数是精确的。</p>
 <p>同样地，如果没有python基础，这里能看懂多少算多少，反正用的也不多。</p>
 <p>例如，构建分数三分之一。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>import fractions<br>fractions.Fraction(1,3)<br>Fraction(1, 3)<br>还可以根据浮点数的字符串格式构建分数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>fractions.Fraction(‘0.3’)<br>Fraction(3, 10)<br>然后可以用分数进行运算。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token keyword">import</span> fractions
+<span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>还可以根据浮点数的字符串格式构建分数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token string">'0.3'</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>然后可以用分数进行运算。</p>
 <p>分数加整数：</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>fractions.Fraction(1,3) + 1<br>Fraction(4, 3)<br>分数加、减、乘、除分数：</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>fractions.Fraction(1,3) + fractions.Fraction(2,3)<br>Fraction(1, 1)<br>fractions.Fraction(1,3) - fractions.Fraction(2,3)<br>Fraction(-1, 3)<br>fractions.Fraction(1,3) * fractions.Fraction(2,3)<br>Fraction(2, 9)<br>fractions.Fraction(1,3) / fractions.Fraction(2,3)<br>Fraction(1, 2)<br>实际上，float对象有一个as_integer_ratio()函数，可以将浮点数转换成整数的元组表示形式(元组后面的文章会介绍)，然后根据这个元组就可以构造出分数来。</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span>
+Fraction<span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>分数加、减、乘、除分数：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">+</span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">-</span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">*</span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span>
+<span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token operator">/</span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>实际上，float对象有一个as_integer_ratio()函数，可以将浮点数转换成整数的元组表示形式(元组后面的文章会介绍)，然后根据这个元组就可以构造出分数来。</p>
 <p>例如，将2.5转换成元组，并进而转换成分数。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>(2.5).as_integer_ratio()<br>(5, 2)      # 得到元组</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>fractions.Fraction(*(2.5).as_integer_ratio())<br>Fraction(5, 2)<br>进制整数的转换<br>oct()：十进制整数转换成八进制<br>hex()：十进制整数转换成十六进制整数<br>bin()：十进制整数转换成二进制<br>例如，将十进制的64转换成二进制、八进制、十六进制整数。</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>bin(64),oct(64),hex(64)<br>(‘0b1000000’, ‘0o100’, ‘0x40’)<br>int()函数也能进行进制转换，它的用法格式为：</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>int(x, base=10)<br>base指定要将x解释成哪个进制位的数，然后转换成十进制数，也就是前面说的构造一个整数对象。不指定base时，默认解释成10进制。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token number">2.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>as_integer_ratio<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>      <span class="token comment" spellcheck="true"># 得到元组</span>
+
+<span class="token operator">>></span><span class="token operator">></span> fractions<span class="token punctuation">.</span>Fraction<span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2.5</span><span class="token punctuation">)</span><span class="token punctuation">.</span>as_integer_ratio<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+Fraction<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>进制整数的转换<br>oct()：十进制整数转换成八进制<br>hex()：十进制整数转换成十六进制整数<br>bin()：十进制整数转换成二进制<br>例如，将十进制的64转换成二进制、八进制、十六进制整数。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> bin<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">,</span>oct<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span><span class="token punctuation">,</span>hex<span class="token punctuation">(</span><span class="token number">64</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token string">'0b1000000'</span><span class="token punctuation">,</span> <span class="token string">'0o100'</span><span class="token punctuation">,</span> <span class="token string">'0x40'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>int()函数也能进行进制转换，它的用法格式为：</p>
+<pre class="line-numbers language-python"><code class="language-python">int<span class="token punctuation">(</span>x<span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>base指定要将x解释成哪个进制位的数，然后转换成十进制数，也就是前面说的构造一个整数对象。不指定base时，默认解释成10进制。</p>
 <p>base的值可以是0或2-36之间的任意一个数，base=0也表示解释成10进制。</p>
 <p>例如，将二进制的数转换为十进制整数。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>int(‘0b11’,base=2)<br>3<br>int(‘11’,base=2)<br>3<br>既然x要解释成某个进制的数，那么超出这个进制的数自然不能出现。例如：</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token string">'0b11'</span><span class="token punctuation">,</span>base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token number">3</span>
+<span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token string">'11'</span><span class="token punctuation">,</span>base<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token number">3</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>既然x要解释成某个进制的数，那么超出这个进制的数自然不能出现。例如：</p>
 <p>将x解释成二进制数的时候，x里就不能包含除0、1之外的数(当然，前缀0b除外)；<br>解释成7进制，就不能出现7、8、9；<br>解释成8进制，就不能出现8、9；<br>解释成11进制，就只能出现0-9、a/A这些字符；<br>12进制就只能出现0-9、aAbB这几个字符；<br>36进制就只能出现0-9、a-zA-Z这几个字符。<br>例如，将一个字符串解释为15进制，并转换成整数。15进制只能出现0-9、a-eA-E这几个字符。</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>int(‘93E’, base=15)<br>2084</p>
-</blockquote>
-</blockquote>
-</blockquote>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token operator">>></span><span class="token operator">></span> int<span class="token punctuation">(</span><span class="token string">'93E'</span><span class="token punctuation">,</span> base<span class="token operator">=</span><span class="token number">15</span><span class="token punctuation">)</span>
+<span class="token number">2084</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
