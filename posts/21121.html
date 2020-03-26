@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="python之面向对象, Jivan">
-    <meta name="description" content="python之面向对象 | Jivan">
+    <meta name="description" content="python面向对象入门从代码复用开始">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -424,12 +424,29 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                <span class="chip bg-color">面向对象</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Python/" class="post-category">
+                                Python
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -445,7 +462,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-20
+                    2020-03-26
                 </div>
                 
 
@@ -460,7 +477,308 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="python面向对象入门-1-：从代码复用开始"><a href="#python面向对象入门-1-：从代码复用开始" class="headerlink" title="python面向对象入门(1)：从代码复用开始"></a>python面向对象入门(1)：从代码复用开始</h1><p>本文从代码复用的角度一步一步演示如何从python普通代码进化到面向对象，并通过代码去解释一些面向对象的理论。所以，本文前面的内容都是非面向对象的语法实现方式，只有在最结尾才给出了面向对象的简单语法介绍。各位道兄不妨一看，如果留下点笔墨指导，本人感激不尽。</p>
+<h2 id="最初代码"><a href="#最初代码" class="headerlink" title="最初代码"></a>最初代码</h2><p>3种动物牛Cow、羊Sheep、马Horse发出的声音各不相同，于是在同一个目录下建立三个模块文件：</p>
+<pre class="line-numbers language-python"><code class="language-python">$ tree <span class="token punctuation">.</span>
+<span class="token punctuation">.</span>
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> cow<span class="token punctuation">.</span>py
+<span class="token operator">|</span><span class="token operator">-</span><span class="token operator">-</span> horse<span class="token punctuation">.</span>py
+`<span class="token operator">-</span><span class="token operator">-</span> sheep<span class="token punctuation">.</span>py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>三个模块文件的内容都只定义了各自的speak()函数：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># cow.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a cow goes moooo!"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># sheep.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a sheep goes baaaah!"</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># horse.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a horse goes neigh!"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后当前目录下在创建一个程序文件main.py，导入这三个模块文件，分别调用这三种动物的speak()函数，它们将发出不同声音：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># main.py</span>
+<span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse
+
+cow<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="让代码更具共性的两种基本方法"><a href="#让代码更具共性的两种基本方法" class="headerlink" title="让代码更具共性的两种基本方法"></a>让代码更具共性的两种基本方法</h2><p>上面的cow.py、sheep.py和horse.py中，都是speak()函数，不同的是函数内容，确切地说是函数内容中print()输出的部分不同，它们输出的结构是<code>a 动物名 goes 叫声!</code>。于是为了让代码更具共性，或者说复用性更高，可以将各模块文件中的动物名和叫声都变得通用化。</p>
+<p>目前来说，<strong>有两种最基本的方式可以让一段代码变得更共性、共通用化：使用参数或变量、使用额外的辅助函数</strong>。当然，除此之外还有更多的方法，但目前来说这两种是最基本的，也是最容易理解的。</p>
+<h3 id="使用参数-变量-让代码更具共性"><a href="#使用参数-变量-让代码更具共性" class="headerlink" title="使用参数(变量)让代码更具共性"></a>使用参数(变量)让代码更具共性</h3><p>首先让动物名变得共性化。可以让speak()中的动物名使用一个参数来替代。例如名为self的参数变量(之所以使用self，是因为在面向对象中它有特殊含义，后文解释)，于是修改这三个模块文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># cow.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes moooo!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># sheep.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes baaaah!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># horse.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes neigh!"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>它们现在<strong>在动物名上和参数名上已经完全相同</strong>，需要调用它们时，只需在函数调用处为他们传递不同的动物名即可。例如，在main.py中：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse
+
+cow<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="使用辅助函数让代码更具共性"><a href="#使用辅助函数让代码更具共性" class="headerlink" title="使用辅助函数让代码更具共性"></a>使用辅助函数让代码更具共性</h3><p>除了参数(变量)，还可以定义额外的函数来上面的代码变得更具共性。例如，这三种动物的叫声，可以额外定义一个sound()函数描述它们。于是在前面的基础上继续修改这三个模块文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># cow.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"moooo"</span>
+
+<span class="token comment" spellcheck="true"># sheep.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"baaaah"</span>
+
+<span class="token comment" spellcheck="true"># horse.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"neigh"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在main.py中，仍然可以使用之前的方式对这3个speak()进行调用：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse
+
+cow<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在，这3个模块文件的speak()已经完完全全地共性化了。</p>
+<h2 id="初步理解类和对象"><a href="#初步理解类和对象" class="headerlink" title="初步理解类和对象"></a>初步理解类和对象</h2><p>所谓的类，就像是一个模板；所谓对象，就像是通过模板生成的具体的事物。类一般具有比较大的共性，对象一般是具体的，带有自己的特性。</p>
+<p>类与对象的关系，例如人类和人，鸟类和麻雀，交通工具和自行车。其中人类、鸟类、交通工具类都是一种类型称呼，它们中的任何一种都具有像模板一样的共性。例如人类的共性是能说话、有感情、双脚走路、能思考等等，而根据这个人类模板生成一个人，这个具体的人是人类的实例，是一个人类对象，每一个具体的人都有自己的说话方式、感情模式、性格、走路方式、思考能力等等。</p>
+<p>类与类的关系。有的类的范畴太大，模板太抽象，它们可以稍微细化一点，例如人类可以划分为男性人类和女性人类，交通工具类可以划分为烧油的、电动的、脚踏的。一个大类按照不同的种类划分，可以得到不同标准的小类。无论如何划分，小类总是根据大类的模板生成的，具有大类的共性，又具有自己的个性。</p>
+<p>在面向对象中，小类和大类之间的关系称之为继承，小类称之为子类，大类称之为父类。</p>
+<p>类具有属性，属性一般包括两类：像名词一样的属性，像动词一样的行为。例如，人类有父母(parent)，parent就是名词，人类能吃饭(eat)，eat这种行为就是动词。鸟类能飞(fly)，fly的行为就是动词，鸟类有翅膀(wing)，wing就是名词。对于面向对象来说，名词就是变量，动词行为就是方法(也就是子程序)。通常，变量和方法都成为类的属性。</p>
+<p>当子类继承了父类之后，父类有的属性，子类可以直接拥有。因为子类一般具有自己的个性，所以子类可以定义自己的属性，甚至修改从父类那里继承来的属性。例如，人类中定义的eat属性是一种非常抽象的、共性非常强的动词行为，如果女性人类继承人类，那么女性人类的eat()可以直接使用人类中的eat，也可以定义自己的eat(比如淑女地吃)覆盖从人类那里继承来的eat(没有形容词的吃)，女性人类还可以定义人类中没有定义的跳舞(dance)行为，这是女性人类的特性。子类方法覆盖父类方法，称之为方法的重写(override)，子类定义父类中没有的方法，称为方法的扩展(extend)。</p>
+<p>当通过类构造出对象后，对象是类的实例，是类的具体化，对象将也具备类的属性，且对象的属性都有各自的值。例如，student类具有成绩、班级等属性，对于一个实际的学生A对象来说，他有成绩属性，且这个成绩具有值，比如89分，班级也一样，比如2班，此外，学生B也有自己的成绩和班级以及对应的值。也就是说，根据类模板生成对象后，对象的各个属性都属于自己，不同对象的属性互不影响。</p>
+<p>无论是对象与类还是子类与父类，它们的关系都可以用一种”is a”来描述，例如”自行车 is a 交通工具”(对象与类的关系)、”笔记本 is a 计算机”(子类与父类的关系)。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>回到上面的3个模块文件。它们具有共性的speak()和sound()，尽管sound()的返回内容各不相同，但至少函数名sound是相同的。</p>
+<p>可以将这3个文件中共性的内容抽取到同一个模块文件中，假设放进animal.py的文件中。animal.py文件的内容为(但这是错误的代码，稍后修改)：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后修改cow.py、sheep.py和horse.py，使它们”继承”animal.py。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># cow.py</span>
+<span class="token keyword">import</span> animal
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token string">"moooo"</span>
+
+<span class="token comment" spellcheck="true"># sheep.py</span>
+<span class="token keyword">import</span> animal
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token string">"baaaah"</span>
+
+<span class="token comment" spellcheck="true"># horse.py</span>
+<span class="token keyword">import</span> animal
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token string">"neigh"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>现在，这三个模块文件都没有了speak()，因为它们都借用它们的”父类”animal中的speak()。</p>
+<p>这表示horse、cow和sheep”继承”了animal，前三者为”子类”，后者为”父类”。</p>
+<p>但注意，这里不是真正的继承，因为python不支持非class对象的继承，所以没法通过非面向对象语法演示继承。但至少从代码复用的角度上来说，它和继承的功能是类似的。</p>
+<p>另外注意，前面animal.py文件是错误的，因为它的speak()函数中调用了sound()函数，但sound()函数在animal.py中是一个没任何用处的函数，仅仅只是代表这个animal具有sound()功能(表示类的一个属性)。而我们真正需要的sound()是可以调用cow、horse、sheep中的sound()，而不是animal自身的sound()。</p>
+<p>所以，在没有使用面向对象语法的情况下，改写一下animal.py文件，导入cow、horse、sheep，使得可以在”父类”的speak()中调用各个”子类”的sound()。再次说明，这里只是为了演示，这种编程方式是不规范的，在真正的面向对象语法中根本无需这些操作。</p>
+<p>以下是修改后的animal.py文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>horse<span class="token punctuation">,</span>sheep
+
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span> eval<span class="token punctuation">(</span>self <span class="token operator">+</span> <span class="token string">".sound()"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+    <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>上面使用eval函数，因为python不支持普通的变量名作为模块名来调用模块的属性sound()，所以使用eval先解析成cow或horse或sheep，再调用各自的sound()函数。如果不懂eval()的功能，可无视它。只需知道这是为了实现<code>self.sound()</code>来调用self所对应变量的sound()函数。</p>
+<p>现在，在main.py中，使用下面的代码来调用speak()，得到的结果和前面是一样的。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse
+
+cow<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>由于不是真正的”继承”，所以这里只能通过模块的方式添加一层<code>animal.</code>来调用speak()。</p>
+<p>虽然上面的代码变得”人不人鬼不鬼”(因为没有使用面向对象的语法)，但面向对象的基本目标达到了：共性的代码全部抽取出去，实现最大程度的代码复用。</p>
+<h2 id="self是什么"><a href="#self是什么" class="headerlink" title="self是什么"></a>self是什么</h2><p>在python的面向对象语法中，将会经常看见<code>self</code>这个字眼。其实不仅python，各种动态类型的、支持面向对象的语言都使用self，例如perl、ruby也是如此。但是，self是约定俗成的词，并非是强制的，可以将self换成其它任何字符，这并不会出现语法错误。</p>
+<p>实际上，对于静态面向对象语言来说，用的更多的可能是this，比如java、c#、c++都使用this来表示实例对象自身。</p>
+<p>那么self到底是什么东西？</p>
+<p>在前文，为了将cow、sheep和horse模块中speak()函数中的动物名称变得共性，添加了一个self参数。之前的那段代码如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># cow.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes moooo!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># sheep.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes baaaah!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># horse.py</span>
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"a %s goes neigh!"</span> <span class="token operator">%</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当调用这三个函数时，分别传递各自的动物名作为参数：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse
+
+cow<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>所以，对于cow来说，self是名为”cow”的动物，对于sheep来说，self是名为”sheep”的动物，对于horse来说，self是名为”horse”的动物。</p>
+<p>也就是说，self是各种动物对象，cow.speak()时是cow，sheep.speak()时是sheep，horse.speak()时是horse。这里的模块名变量和speak()的参数是一致的，这是我故意设计成这样的，因为面向对象语法中默认的行为和这是完全一样的，仅仅只是因为语法不同而写法不同。</p>
+<p>简而言之，self是各个动物对象自身。</p>
+<p>后来将cow、sheep和horse的speak()函数抽取到了animal中，仍然使用self作为speak()的参数。</p>
+<p>以下是animal.py文件中的speak()函数：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span> eval<span class="token punctuation">(</span>self <span class="token operator">+</span> <span class="token string">".sound()"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>当使用下面的方式去调用它时：</p>
+<pre class="line-numbers language-python"><code class="language-python">cow<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>self是cow、是sheep、是horse，而不是animal。前面说了，在真正的面向对象语法中，中间的这一层animal是被省略的，这里之所以加上一层animal，完全是因为python的非面向对象语法中没办法实现继承。</p>
+<p>当真正使用面向对象语法的时候，self将表示实例对象自身。例如student类有name属性，当根据此类创建一个stuA对象，并使用<code>self.name</code>时，表示<code>stuA.name</code>，换句话说，self是stuA这个对象自身，<code>self.name</code>是stuA对象自身的属性name，和另一个学生对象的<code>stuB.name</code>无关。</p>
+<h2 id="重写父类方法"><a href="#重写父类方法" class="headerlink" title="重写父类方法"></a>重写父类方法</h2><p>前面的animal.py中定义了一个空代码体的sound()函数，在cow、sheep和horse中定义了属于自己叫声的sound()函数。这其实就是方法的重写(方法就是函数，只是在面向对象中称为方法)：父类定义了某个方法，子类修改和父类同名的方法。</p>
+<p>例如，新添加一个类mouse，重写animal的speak()方法，mouse的speak()方法中会叫两声，而不是其它动物一样只有一声。假设mouse类定义在mouse.py文件中，代码如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> animal
+
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"jijiji"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这里重写了父类animal的speak()，并在mouse.speak()中调用了父类animal.speak()，再次基础上还叫了一声。</p>
+<p>为了让这段代码运行，需要在animal.py中导入mouse，但在真正面向对象语法中是不需要的，原因前面说了。</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># animal.py</span>
+<span class="token keyword">import</span> cow<span class="token punctuation">,</span>horse<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>mouse
+
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span> eval<span class="token punctuation">(</span>self <span class="token operator">+</span> <span class="token string">".sound()"</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> 
+    <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后在main.py中调用mouse.speak()即可：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>sheep<span class="token punctuation">,</span>horse<span class="token punctuation">,</span>mouse
+
+cow<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cow"</span><span class="token punctuation">)</span>
+sheep<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheep"</span><span class="token punctuation">)</span>
+horse<span class="token punctuation">.</span>animal<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horse"</span><span class="token punctuation">)</span>
+mouse<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"mouse"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>按照”里氏替换原则”：<strong>子类重写父类方法时，应该扩展父类的方法行为，而不是直接否定父类的方法代码并修改父类方法的代码</strong>。这是一种编程原则，并非强制，但是经验所在，我们应当参考甚至尽量遵循这些伟人提出的原则。</p>
+<p>正如上面的mouse，speak()是在父类的speak()上扩展的。如果将mouse.speak()改为如下代码，则不符合里氏替换原则：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> animal
+
+<span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token string">"jijiji"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>并非一定要遵循里氏替换原则，应该根据实际场景去考虑。比如上面的sound()方法，父类的sound()是一个空方法，仅仅只是声明为类的属性而存在。子类可以随意根据自己的类特性去定制sound()。</p>
+<p>再举一个扩展父类方法的例子。在父类中定义了一个clean()方法，用于清理、回收父类的一些信息。子类中也重写一个clean()方法，但这时应当确保子类的clean()中包含了调用父类的clean()方法，再定义属于子类独有的应当清理的一些信息。这就是父类方法的扩展，而不是父类方法的直接否定。因为子类并不知道父类的clean()会清理哪些信息，如果完全略过父类clean()，很可能本该被父类clean()清理的东西，子类没有去清理。</p>
+<h2 id="真正面向对象的语法"><a href="#真正面向对象的语法" class="headerlink" title="真正面向对象的语法"></a>真正面向对象的语法</h2><p>前面的所有内容都只是为了从代码复用的角度去演示如何从普通编程方式演变成面向对象编程。现在，简单介绍python面向对象编程的语法，实现前文的animal、horse、cow和sheep，由此来和前文的推演做个比较。关于面向对象，更多内容在后面的文章会介绍。</p>
+<p>使用class关键字定义类，就像定义函数一样。这里定义4个类，父类animal，子类cow、sheep、horse，子类继承父类。它们分别保存到animal.py、cow.py、sheep.py和horse.py文件中。</p>
+<p>animal.py文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true"># 定义Animal类</span>
+<span class="token keyword">class</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">,</span> self<span class="token punctuation">.</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>cow.py文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> animal
+
+<span class="token comment" spellcheck="true"># 定义Cow类，继承自Animal</span>
+<span class="token keyword">class</span> <span class="token class-name">Cow</span><span class="token punctuation">(</span>animal<span class="token punctuation">.</span>Animal<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"moooo"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>sheep.py文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> animal
+
+<span class="token comment" spellcheck="true"># 定义Sheep类，继承自Animal</span>
+<span class="token keyword">class</span> <span class="token class-name">Sheep</span><span class="token punctuation">(</span>animal<span class="token punctuation">.</span>Animal<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"baaaah"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>horse.py文件：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> animal
+
+<span class="token comment" spellcheck="true"># 定义Horse类，继承自Animal</span>
+<span class="token keyword">class</span> <span class="token class-name">Horse</span><span class="token punctuation">(</span>animal<span class="token punctuation">.</span>Animal<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"neigh"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在main.py文件中生成这3个子类的实例，并通过实例对象去调用定义在父类的speak()方法：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>horse<span class="token punctuation">,</span>sheep
+
+<span class="token comment" spellcheck="true"># 生成这3个子类的实例对象</span>
+cowA <span class="token operator">=</span> cow<span class="token punctuation">.</span>Cow<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheepA <span class="token operator">=</span> sheep<span class="token punctuation">.</span>Sheep<span class="token punctuation">(</span><span class="token punctuation">)</span>
+horseA <span class="token operator">=</span> horse<span class="token punctuation">.</span>Horse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 通过实例对象去调用speak()方法</span>
+cowA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheepA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span>
+horseA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果：</p>
+<pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">&lt;</span>cow<span class="token punctuation">.</span>Cow object at <span class="token number">0x03341BD0</span><span class="token operator">></span> goes moooo!
+a <span class="token operator">&lt;</span>sheep<span class="token punctuation">.</span>Sheep object at <span class="token number">0x03341BF0</span><span class="token operator">></span> goes baaaah!
+a <span class="token operator">&lt;</span>horse<span class="token punctuation">.</span>Horse object at <span class="token number">0x03341F50</span><span class="token operator">></span> goes neigh!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>输出结果和想象中不一样，先别管结果。至少如果把``换成对应的实例对象名称，就和前文的效果一样了。这个稍后再改。</p>
+<p>先看语法。</p>
+<p>使用class关键字声明类，类名一般首字母大写。如果要继承某个类，在类名的括号中指定即可，例如<code>class Cow(Animal)</code>。</p>
+<p>因为Cow、Horse、Sheep类继承了Animal类，所以即使这3个子类没有定义speak()方法，也将拥有(继承)父类Animal的speak()方法。</p>
+<p>通过调用类，可以创建这个类的实例对象。例如上面<code>cowA=cow.Cow()</code>，表示创建一个Cow()的对象，这个对象在内存中，赋值给了cowA变量。也即是说cowA引用了这个对象，是这个对象的唯一标识符。注意，cowA是变量，因为引用对象，所以可以称为对象变量。</p>
+<p>当调用<code>cowA.speak()</code>时，首先查找speak()方法，因为没有定义在Cow类中，于是查找父类Animal，发现有speak()方法，于是调用父类的speak()方法。调用时，python会自动将cowA这个对象作为speak()的第一个参数，它将传递给Animal类中speak()的self参数，所以此时self表示cowA这个对象，<code>self.sound()</code>表示<code>cowA.sound()</code>，由于Cow类中定义了sound()，所以直接调用Cow类的sound()，而不会调用Animal中的sound()。</p>
+<p>和前面的推演代码复用的过程比较一下，不难发现面向对象的语法要轻便很多，它将很多过程自动化了。</p>
+<p>现在还有一个问题，上面的代码输出结果不是我们想要的。见下文。</p>
+<h2 id="类的属性"><a href="#类的属性" class="headerlink" title="类的属性"></a>类的属性</h2><p>为了让speak()输出对象名(如对象变量名cowA)，这并非一件简单的事。</p>
+<p>在python中，变量都是保存对象的，变量和数据对象之间是相互映射的，只要引用变量就会得到它的映射目标。如果这个对象具有<code>__name__</code>属性，则直接引用该属性即可获取该变量的名称，很简单。</p>
+<p>但是很多对象并没有<code>__name__</code>属性，比如自定义的类的对象实例，这时想要获取类的对象变量名，实非易事。有两个内置函数可以考虑：globals()函数和locals()函数，它们返回当前的全局变量和本地变量的字典。遍历它们并对字典的value和给定变量进行比较，即可获取想要的变量名key。</p>
+<p>但如果跨文件了，例如Animal类在一个文件，Cow类在一个文件，创建对象的代码又在另一个文件，它们的作用域都是各自独立的，想要在Animal类的方法speak()中获取Cow类的对象变量名cowA，python应该是没办法实现的(perl支持，且实现非常简单)。</p>
+<p>所以，只能使用另一种标识对象的方法：为类添加属性，例如name属性，然后在speak()中引用对象的这个name属性即可。</p>
+<p>修改animal.py文件如下：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> self<span class="token punctuation">.</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后，在main.py中调用speak()的时候，传递name参数即可：</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> cow<span class="token punctuation">,</span>horse<span class="token punctuation">,</span>sheep
+
+<span class="token comment" spellcheck="true"># 生成这3个子类的实例对象</span>
+cowA <span class="token operator">=</span> cow<span class="token punctuation">.</span>Cow<span class="token punctuation">(</span><span class="token punctuation">)</span>
+sheepA <span class="token operator">=</span> sheep<span class="token punctuation">.</span>Sheep<span class="token punctuation">(</span><span class="token punctuation">)</span>
+horseA <span class="token operator">=</span> horse<span class="token punctuation">.</span>Horse<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># 通过实例对象去调用speak()方法</span>
+cowA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"cowA"</span><span class="token punctuation">)</span>
+sheepA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"sheepA"</span><span class="token punctuation">)</span>
+horseA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token string">"horseA"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>输出结果：</p>
+<pre class="line-numbers language-python"><code class="language-python">a cowA goes moooo!
+a sheepA goes baaaah!
+a horseA goes neigh!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这正是期待的结果。</p>
+<h2 id="构造方法init"><a href="#构造方法init" class="headerlink" title="构造方法init()"></a>构造方法<strong>init</strong>()</h2><p>上面是在speak()方法中通过<code>self.name = name</code>的方式设置对象horseA的name属性。一般来说，对于那些对象刚创建就需要具备的属性，应当放在构造方法中进行设置。</p>
+<p>构造方法是指从类构造对象时自动调用的方法，是对象的初始化方法。python的构造方法名为<code>__init__()</code>。以下是在构造方法中设置name属性的代码：</p>
+<pre class="line-numbers language-python"><code class="language-python">pythonclass Animal<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+
+    <span class="token keyword">def</span> <span class="token function">speak</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span> <span class="token string">"a %s goes %s!"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> self<span class="token punctuation">.</span>sound<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">sound</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后构造horseA对象的时候，传递name参数的值即可构造带有name属性的对象：</p>
+<pre class="line-numbers language-python"><code class="language-python">horseA <span class="token operator">=</span> Horse<span class="token punctuation">(</span><span class="token string">"baima"</span><span class="token punctuation">)</span>
+horseA<span class="token punctuation">.</span>speak<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><code>__init__()</code>是在调用Horse()的时候自动被调用的，由于Horse类中没有定义构造方法，所以将搜索继承自父类的构造方法<code>__init__()</code>，发现定义了，于是调用父类的构造方法，并将对象名horseA传递给self参数，然后设置该对象的name属性为”baima”。</p>
+<p>python设置或添加对象的属性和其它语言非常不同，<strong>python可以在任意地方设置对象的属性，而不必先在构造方法中声明好具有哪些属性</strong>。比如前面在speak()方法中通过<code>self.name = name</code>设置，此外还可以在main.py文件中添加对象的属性。例如添加一个color属性：</p>
+<pre class="line-numbers language-python"><code class="language-python">horseA <span class="token operator">=</span> Horse<span class="token punctuation">(</span><span class="token string">"baima"</span><span class="token punctuation">)</span>
+horseA<span class="token punctuation">.</span>color <span class="token operator">=</span> <span class="token string">"white"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>只要通过<code>self.xxx</code>或者<code>obj_name.xxx</code>的方式设置属性，无论在何处设置都无所谓，都会是该对象独有的属性，都会被代表名称空间的<code>__dict__</code>属性收集到。</p>
+<pre class="line-numbers language-python"><code class="language-python">horseA<span class="token punctuation">.</span>__dict__<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -522,7 +840,15 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                                    <span class="chip bg-color">面向对象</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -561,39 +887,53 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/21121.html">
+                <a href="/posts/16052.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="python之面向对象">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="python面向对像之设置对象属性">
                         
-                        <span class="card-title">python之面向对象</span>
+                        <span class="card-title">python面向对像之设置对象属性</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            python面向对象入门设置对象属性
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-20
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-03-26
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Jivan
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Python/" class="post-category">
+                                    Python
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
+                        <span class="chip bg-color">面向对象</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
